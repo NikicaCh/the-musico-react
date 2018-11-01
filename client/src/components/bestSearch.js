@@ -20,6 +20,7 @@ class BestSearch extends React.Component {
 
     componentDidMount() {
         let token = accessToken();
+        let userId = this.props.userId;
         getDevices(token)
         .then((data) => {
             if(data) {
@@ -32,8 +33,16 @@ class BestSearch extends React.Component {
                                 // let userId = this.props.userId;
                                 let trackId = e.target.getAttribute('id');
                                 PlayTrack(trackId, token, deviceId);
-                                if(this.state.type === "artist")
-                                console.log("NOW STATE",this.state.searched)
+                                if(this.state.type === "artist"){
+                                    let cookies = new Cookies();
+                                    if(cookies.get(`mostRecent1${userId}`) !== this.state.searched) {
+                                        cookies.set(`mostRecent2${userId}`, cookies.get(`mostRecent1${userId}`))
+                                        cookies.set(`mostRecent1${userId}`, this.state.searched)
+                                    } 
+                                } else {
+                                    let cookies = new Cookies();
+                                    cookies.set(`lastTrack${userId}`, this.state.searched)
+                                }
                             }); 
                         });
                     }

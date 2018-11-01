@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import '../App.css';
 import {accessToken, RecentlyPlayed} from './Fetch';
 import Result from './searchResults/Result';
-import Navbar from './navbar';
+import Navbar from './navbar'
+import SearchButton from './searchButton'
 
 class Home extends Component {
     constructor(props) {
@@ -30,8 +31,7 @@ class Home extends Component {
                 <div class="home-title">
                     <span className="title-1">The</span><span className="title-2">MUSICO</span>
                 </div>
-                <img className="musico-logo" src={require("../icons/musico-logo.png")}></img>
-                <span className="search-div">search</span>
+                <SearchButton color="" />
                 <Navbar />
             </div>
             // <div className="home-page">

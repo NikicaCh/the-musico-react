@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import '../App.css';
 import {getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch';
+import CookiePopUp from './cookiePopUp';
+import Cookies from 'universal-cookie';
 // import ReactDOM from 'react-dom';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -50,6 +52,7 @@ class Player extends Component {
             changedSong: 0,
             volume: 100,
             numberofParagraphs: 0,
+            cookieUsed: false
         }
         this.getLyrics = this.getLyrics.bind(this);
         this.setCurrentTrack = this.setCurrentTrack.bind(this);
@@ -184,6 +187,7 @@ class Player extends Component {
         let genius = getGeniusKey();
         getCurrentPlayback(access) // get info about the current spotify playback
         .then(data => {
+            console.log(data)
             if(data) {
                 let playing = data.data.is_playing;
                 this.setState({playing})
@@ -264,11 +268,9 @@ class Player extends Component {
                 else if(code === 39 && $("#search").hasClass("hide")) { //right arrow
                     NextTrack(token);
                 }
-                else if(code === 32 && $("#search").hasClass("hide")) {
+                else if(code === 32 && $("#search").hasClass("hide")) { //space
                     if(this.state.playing) {
-                        Pause(token);
-
-                        this.setState({playing: false});
+                        this.setState({playing: false}, () => Pause(token));
                     } else {
                         this.setState({playing: true}, () => Play(token));
                     }
@@ -310,7 +312,15 @@ class Player extends Component {
         getUser(access)
         .then((data) => {
             if(data) {
-                this.setState({userEmail: data.data.email, userId: data.data.id})
+                this.setState({userEmail: data.data.email, userId: data.data.id}, () => {
+                    let cookies = new Cookies();
+                    console.log("HERE IT IS", cookies.get(`${this.state.userId}cookie`))
+                    if(cookies.get(`${this.state.userId}cookie`) == 1) {
+                        this.setState({cookieUsed: true})
+                    } else {
+                        this.setState({cookieUsed: false})
+                    }
+                })
             }
         })
         document.querySelector("body").addEventListener("wheel", this.handleScrollLyrics)
@@ -329,7 +339,7 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { window.location.replace("http://localhost:3001/login") });
         player.addListener('account_error', ({ message }) => { console.error(message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); // Try to figure out how to let the use know about this errors
             
@@ -339,6 +349,7 @@ class Player extends Component {
             loading = false;
             this.setState({loading: false})
             this.setCurrentTrack(access); // SET CURRENT TRACK --------------------------------------------------
+            this.setCurrentTrack(access); // I must call this func twice, because when I try to play the same song again the API returns is_playing:false
             getDevices(access)
             .then((data) => {
                 if(data) {
@@ -387,11 +398,6 @@ class Player extends Component {
                 {loading 
                 ? <Spinner /> 
                 :<div ref={"player"} id="player" className="player">
-                <span
-                    className="search-div-black"
-                    onClick={this.searchModal}
-                    >search
-                </span>
                 <Search
                     deviceId={this.state.musicoId}
                     playing={this.state.playing}
@@ -407,8 +413,7 @@ class Player extends Component {
                 {/* <DisplayText name={this.state.currentArtist} class={'artistName'} /> */}
                 <Photo
                     src={this.state.currentImage} 
-                />
-                <img className="musico-logo" src={require("../icons/musico-logo-black.png")}></img>
+                />              
                 </div>
                 }
                 <LyricsDiv
@@ -421,6 +426,13 @@ class Player extends Component {
                     numberofParagraphs={this.state.numberofParagraphs}
                     lyricsPosition={this.state.lyricsPosition}
                 />
+                {
+                    this.state.cookieUsed
+                    ?<div></div>
+                    :<CookiePopUp
+                    userId={this.state.userId}/>
+                }
+                
                 <div id="for-modals"></div>
                 {
                     (this.state.playing)

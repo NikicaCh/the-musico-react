@@ -15,6 +15,12 @@ import Home from './components/Home';
 import Player from './components/Player';
 import Navbar from './components/navbar';
 import AboutPage from './components/AboutPage';
+import CookiePolicy from './components/cookiePolicy'
+
+
+//import components
+import Logo from './components/logo'
+import SearchButton from './components/searchButton'
 
 
 class App extends Component {
@@ -59,15 +65,23 @@ class App extends Component {
            { /*The home route */}
             <Route exact path="/home" render ={ () => {
               return(
-                <Home token={this.state.token} />
+                <div>
+                  <Logo color="" />
+                  <Home token={this.state.token} />
+                </div>
               );
             }
             }
             />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/cookie" component={CookiePolicy} />
             <Route exact path="/" render = { () => {
               return (
+                <div>
+                  <Logo color={"-black"} />
+                  <SearchButton color={"-black"} />
                   <Player/>
+                </div>
                 );
               }
             }

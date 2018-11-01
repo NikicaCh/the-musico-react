@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url('https://fonts.googleapis.com/css?family=Anton');
-
 .home {
   height: 100vh;
   width: 100%;
@@ -30,6 +29,7 @@ body:focus {
   width: 3vw;
   top: 4%;
   left: 4.5%;
+  cursor: pointer;
 }
 .home-title {
   position: absolute;
@@ -48,11 +48,17 @@ body:focus {
   bottom: 75%;
   position: absolute;
 }
+.title-1::selection {
+  background: transparent;
+}
 .title-2 {
   color: transparent;
   font-family: 'Anton', sans-serif;
   -webkit-text-stroke: 1px #fff;
   font-size: 8vw;
+}
+.title-2::selection {
+  background: transparent;
 }
 .search-div {
   position: absolute;
@@ -72,6 +78,9 @@ body:focus {
   color: rgb(22, 22, 22);
   transition: all .3s ease-in-out;
 }
+.search-div::selection {
+  background: transparent;
+}
 .search-div-black {
   position: absolute;
   border: solid 2px rgb(22, 22, 22);
@@ -84,6 +93,7 @@ body:focus {
   left: 4.5%;
   transform: rotate(-90deg);
   cursor: pointer;
+  z-index: 200;
 }
 .search-div-black:hover {
   background: rgb(22, 22, 22);
@@ -124,6 +134,10 @@ body:focus {
   text-decoration: none;
   margin: 30px;
   cursor: pointer;
+  color: white;
+}
+.navigation a::selection {
+  background: transparent;
 }
 
 .navigation a::after {
@@ -940,3 +954,148 @@ button:focus {outline:0;}
   top: 45%;
   left: 48%;
 }
+
+.player-logo-hover {
+  position: absolute;;
+  z-index: 15;
+  top: 4%;
+  left: 4.5%;
+}
+
+.player-logo-hover img {
+  position:absolute;
+  -webkit-transition: opacity .2s ease;
+  -moz-transition: opacity .2s ease;
+  -o-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+}
+
+.player-logo-hover img.bottom{
+  opacity: 0;
+}
+.player-logo-hover:hover img.bottom {
+  opacity: 1;
+}
+
+.player-logo-hover img.top:hover {
+  opacity: 0;
+}
+
+.cookies {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(233, 237, 241);
+}
+
+.cookie-image {
+  position: absolute;
+  top: 55%;
+  left: 60%;
+}
+
+.cookie-policy {
+  position: absolute;
+  width: 60%;
+  height: auto;
+  top: 25%;
+  left: 5%;
+  background: rgba(213, 216, 218, 0.507);
+  box-shadow: inset 0px 0px 1.5px 1.5px rgb(124, 124, 124);
+  padding: 2%;
+}
+
+.cookies h2, h3, h4 {
+  font-family: 'Anton', sans-serif;
+}
+
+.cookies h2::selection, h3::selection, h4::selection {
+  background: rgb(230, 221, 175)
+}
+
+.cookies p {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1vw;
+  font-weight: 800;
+}
+
+.cookies p::selection {
+  background: rgb(230, 221, 175)
+}
+
+.cookie-policy ul {
+  list-style: square outside none;
+  font-family: 'Amatic SC', cursive;
+  font-size: 1vw;
+  font-weight: 600;
+}
+.cookie-policy ul li::selection {
+  background: rgb(143, 137, 110)
+}
+
+.cookie-policy a {
+  text-decoration: none;
+  color: rgb(53, 50, 38);
+  font-size: 1.2vw;
+}
+.cookie-policy a::selection {
+  background: rgb(65, 61, 43);
+  color: white;
+}
+
+.cookie-modal {
+  width: 20%;
+  height: auto;
+  background: rgba(102, 101, 101, 0.507);
+  position: absolute;
+  top: 70%;
+  right: 5%;
+  border-radius: 5px;
+  padding: 1.5% .8% .5% .5%;
+  z-index: 200;
+  overflow: hidden;
+}
+.cookie-modal:hover {
+  background: rgba(175, 175, 175, 0.945)
+}
+
+.cookie-modal p {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.2vw;
+  font-weight: 800;
+}
+.cookie-modal p::selection {
+  background: rgb(230, 221, 175);
+}
+
+.cookie-modal a {
+  text-decoration: none;
+  color: rgb(53, 50, 38);
+  font-size: 1.2vw;
+}
+
+.cookie-modal a::selection {
+  background: rgb(65, 61, 43);
+  color: white;
+}
+
+.cookie-modal-image {
+  position: absolute;
+  width: 20%;
+  height: 50%;
+  top: 50%;
+  right: -8%;
+  z-index: -2;
+}
+
+.cookie-close {
+  position: absolute;
+  width: 4%;
+  height: 9%;
+  top: 3%;
+  right: 3%;
+  cursor: pointer;
+  z-index: 210;
+}
+
+/* font-family: apercu-mono-regular */

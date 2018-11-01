@@ -159,7 +159,7 @@ export const TransferPlayback = (token, id) => {
               `${id}`
             ]
           })
-});
+    });
 }
 
 export const getUser = (token) => {
@@ -190,6 +190,10 @@ export const Featuring = (id, token) => {
         }
     })
     return promise;
+}
+
+export const New_Releases = () => {
+
 }
 
 export const PlayTrack = (trackUri, token, deviceId) => {

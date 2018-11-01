@@ -6,6 +6,8 @@ import Result from './searchResults/Result';
 import {accessToken, SearchFor} from './Fetch';
 import BestSearch from './bestSearch';
 import PlayerInfo from './PlayerInfo';
+import Cookies from 'universal-cookie';
+
 
 class Search extends Component {
     constructor(props) {
@@ -96,18 +98,36 @@ class Search extends Component {
             e.target.parentNode.remove()
         })
         $(".pill").on("click", (e) => {
-            let value = e.target.innerText;
-            let token = accessToken();
-            $(".search-inner").addClass("search-searched")
-            $(".search-title").addClass("title-searched")
-            $(".pills-row").addClass("pills-searched")
-            $(".results").attr("class", "results")
-            this.setState({searchValue: value}, () => {
-                this.search(token, value);
-            }) 
+            console.log(e.target.id)
+            if(e.target.id === "pill1" || e.target.id === "pill2" || e.target.id === "pill3") {
+                let value = e.target.innerText;
+                let token = accessToken();
+                $(".search-inner").addClass("search-searched")
+                $(".search-title").addClass("title-searched")
+                $(".pills-row").addClass("pills-searched")
+                $(".results").attr("class", "results")
+                this.setState({searchValue: value}, () => {
+                    this.search(token, value);
+                }) 
+            }
         }) 
     }
     render() {
+        let cookies = new Cookies();
+        let userId = this.props.userId
+        let mostRecent1 = cookies.get(`mostRecent1${userId}`)
+        if(mostRecent1 == undefined) {
+            mostRecent1 = "imagine dragons"
+        }
+        let mostRecent2 = cookies.get(`mostRecent2${userId}`)
+        if(mostRecent2 == undefined) {
+            mostRecent2 = "Drake"
+        }
+        let lastTrack = cookies.get(`lastTrack${userId}`)
+        console.log(lastTrack)
+        if(lastTrack === undefined) {
+            lastTrack = "shallow"
+        }
         let type;
         if(this.state.type === "track") {
             type = "play-track track"
@@ -139,11 +159,11 @@ class Search extends Component {
                     </button>
                 </div>
                 <div className="row pills-row">
-                    <span className="pill">new releases <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
-                    <span className="pill">viral <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
-                    <span className="pill">genres <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
-                    <span className="pill">Drake <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
-                    <span className="pill">new releases <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill1" className="pill">{mostRecent1}<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill2" className="pill">{mostRecent2}<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill3" className="pill">{lastTrack}<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill4" className="pill">new_releases<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill5" className="pill">new releases <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
                 </div>
                 <div className="row">
                     { value

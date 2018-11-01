@@ -6,11 +6,10 @@ const Navbar = props => {
     return (
         <div className="navigation">
             <ul>
-                <li><a>Explore</a></li>
-                <li><a>About</a></li>
-                <li><a>Player</a></li>
-                <li><a>Contact Us</a></li>
-                <li><a>Search</a></li>
+                <li><a href="/explore">Explore</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/">Player</a></li>
+                <li><a href="/contact">Contact Us</a></li>
             </ul>
         </div>
     )
