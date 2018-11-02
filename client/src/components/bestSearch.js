@@ -58,7 +58,7 @@ class BestSearch extends React.Component {
             Featuring(this.props.artistId, token )
             .then((data) => {
                 if(data) {
-                    let array = data.data.tracks.slice(0, 5).map((track) => {
+                    let array = data.data.tracks.slice(0, 12).map((track) => {
                         let name = track.name
                         if(track.name.length > 20) {
                             name = track.name.substring(0, 20) +"...";
@@ -67,7 +67,7 @@ class BestSearch extends React.Component {
                                     <div className="row w-100 ml-5 d-flex justify-content-center">
                                         <img
                                             src={track.album.images[0].url}
-                                            className="featuring-img play-track"
+                                            className="featuring-img play-track mb-3"
                                             id={track.uri}>
                                         </img>
                                     </div>
@@ -100,7 +100,7 @@ class BestSearch extends React.Component {
                 render
                 ?   <div>
                     <div className="container w-100 search-top">
-                        <div className="row">
+                        <div className="row w-100">
                             <div className="col-md-3 mt-5 relative"> 
                                 <img id={this.props.trackId} src={this.props.image} className={`best-search-img ${this.props.type}-img`}></img>
                                 {/* <img className="play-hover" src={require("../icons/play-hover.png")}></img> */}

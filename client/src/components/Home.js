@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import '../App.css';
 import {accessToken, RecentlyPlayed} from './Fetch';
 import Result from './searchResults/Result';
+import $ from 'jquery'
 import Navbar from './navbar'
 import SearchButton from './searchButton'
+import Search from './Search'
 
 class Home extends Component {
     constructor(props) {
@@ -11,8 +13,10 @@ class Home extends Component {
         this.state = {
             RecentlyPlayed: [],
         }
+
     }
     componentDidMount(){
+        document.onkeydown = this.handleKeyPress; //handle keypress
         // let token = accessToken();
         // let array = [];
         // RecentlyPlayed(token, 6)
@@ -28,6 +32,7 @@ class Home extends Component {
     render() {
         return (
             <div className="home">
+                <div className="title-layer"></div>
                 <div class="home-title">
                     <span className="title-1">The</span><span className="title-2">MUSICO</span>
                 </div>

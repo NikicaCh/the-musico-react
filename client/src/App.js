@@ -18,6 +18,7 @@ import AboutPage from './components/AboutPage';
 import CookiePolicy from './components/cookiePolicy'
 
 
+
 //import components
 import Logo from './components/logo'
 import SearchButton from './components/searchButton'

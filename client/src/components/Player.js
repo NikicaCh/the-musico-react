@@ -52,21 +52,21 @@ class Player extends Component {
             changedSong: 0,
             volume: 100,
             numberofParagraphs: 0,
-            cookieUsed: false
+            cookieUsed: false,
         }
-        this.getLyrics = this.getLyrics.bind(this);
-        this.setCurrentTrack = this.setCurrentTrack.bind(this);
-        this.toggleShuffle = this.toggleShuffle.bind(this);
-        this.handleSlider = this.handleSlider.bind(this);
-        this.transform = this.transform.bind(this);
-        this.reverse = this.reverse.bind(this);
-        this.scrapeLyrics = this.scrapeLyrics.bind(this);
-        this.receiveLyrics = this.receiveLyrics.bind(this);
-        this.sendToBackEnd = this.sendToBackEnd.bind(this);
-        this.handleScrollLyrics = this.handleScrollLyrics.bind(this);
-        // this.showLeftModal = this.showLeftModal.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.getLyrics = this.getLyrics.bind(this)
+        this.setCurrentTrack = this.setCurrentTrack.bind(this)
+        this.toggleShuffle = this.toggleShuffle.bind(this)
+        this.handleSlider = this.handleSlider.bind(this)
+        this.transform = this.transform.bind(this)
+        this.reverse = this.reverse.bind(this)
+        this.scrapeLyrics = this.scrapeLyrics.bind(this)
+        this.receiveLyrics = this.receiveLyrics.bind(this)
+        this.sendToBackEnd = this.sendToBackEnd.bind(this)
+        this.handleScrollLyrics = this.handleScrollLyrics.bind(this)
+        this.handleKeyPress = this.handleKeyPress.bind(this)
         this.searchModal = this.searchModal.bind(this)
+        this.playPause = this.playPause.bind(this)
     } 
     toggleShuffle() {
         let token = accessToken();
@@ -255,6 +255,14 @@ class Player extends Component {
             }
         }  
     }
+    playPause() {
+        let token = accessToken();
+        if(this.state.playing) {
+            Pause(token);
+        } else {
+            Play(token);
+        }
+    }
     handleKeyPress(e) {
         console.log(e.keyCode)
         if($("#search").length) { //if the search modal is not active
@@ -269,11 +277,7 @@ class Player extends Component {
                     NextTrack(token);
                 }
                 else if(code === 32 && $("#search").hasClass("hide")) { //space
-                    if(this.state.playing) {
-                        this.setState({playing: false}, () => Pause(token));
-                    } else {
-                        this.setState({playing: true}, () => Play(token));
-                    }
+                    this.playPause();
                 }
                 else if(code === 40 && $("#search").hasClass("hide")) { //down arrow
                     if(this.state.volume > 0) {
@@ -340,8 +344,8 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => { window.location.replace("http://localhost:3001/login") });
-        player.addListener('account_error', ({ message }) => { console.error(message); });
-        player.addListener('playback_error', ({ message }) => { console.error(message); }); // Try to figure out how to let the use know about this errors
+        player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
         // Ready
         player.addListener('ready', ({ device_id }) => {
@@ -375,6 +379,7 @@ class Player extends Component {
             //     this.setState({playing: true})
             // }
             this.setCurrentTrack(access); // SET CURRENT TRACK -------------------------------------------------
+            this.setCurrentTrack(access); // I must call this func twice, because when I try to play the same song again the API returns is_playing:false
             let url;
                 
         });
@@ -426,6 +431,13 @@ class Player extends Component {
                     numberofParagraphs={this.state.numberofParagraphs}
                     lyricsPosition={this.state.lyricsPosition}
                 />
+                <div className="player-info">
+                    <div
+                        className="player-info-circle"
+                        onClick={this.playPause}>
+                        <img src={ this.state.playing ? require('../icons/pause.png') : require('../icons/play.png')}></img>
+                    </div>
+                </div>
                 {
                     this.state.cookieUsed
                     ?<div></div>

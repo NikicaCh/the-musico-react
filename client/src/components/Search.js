@@ -5,7 +5,6 @@ import $ from "jquery";
 import Result from './searchResults/Result';
 import {accessToken, SearchFor} from './Fetch';
 import BestSearch from './bestSearch';
-import PlayerInfo from './PlayerInfo';
 import Cookies from 'universal-cookie';
 
 
@@ -26,6 +25,7 @@ class Search extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.search = this.search.bind(this);
+        // this.handleKeyPress = this.handleKeyPress.bind(this);
     };
     search(token, value) {
         SearchFor(token, value, "track", 10)
@@ -83,7 +83,15 @@ class Search extends Component {
         }) 
                
     }
+    // handleKeyPress(e) {
+    //     let code = e.keyCode;
+    //     let token = accessToken();
+    //     if(code == 27 && !$("#search").hasClass("hide")) {
+    //         $("#search").toggleClass("hide")
+    //     }
+    // }
     componentDidMount() {
+        // document.onkeydown = this.handleKeyPress; //handle keypress
         $(".search-close").on("click", () => $("#search").toggleClass("hide"))
         let value = $(".search-input").val();
         let token = accessToken();
@@ -183,8 +191,6 @@ class Search extends Component {
                         userId={this.props.userId}
                         search={this.state.searchValue}/>
                 </div>
-                <PlayerInfo
-                    playing={this.props.playing}/>
                 </div>
             </div>
         );

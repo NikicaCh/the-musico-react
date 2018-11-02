@@ -4,7 +4,7 @@
   height: 100vh;
   width: 100%;
   background: #090a0a;
-  position: relative;
+  position: absolute;
 }
 .heading {
   margin-top: 50px;
@@ -30,6 +30,15 @@ body:focus {
   top: 4%;
   left: 4.5%;
   cursor: pointer;
+}
+.title-layer {
+  width: 30%;
+  height: 400px;
+  background: #090a0a;
+  position: absolute;
+  z-index: 10;
+  top: 62%;
+  left: 16%;
 }
 .home-title {
   position: absolute;
@@ -649,7 +658,7 @@ body {
 
 .search-transform {
   transform: scale(0.9);
-  transition: transform .7s ease-in-out;
+  transition: transform .3s ease-in-out;
 }
 
 .search {
@@ -685,6 +694,9 @@ body {
   background: transparent;
 }
 .search-input:focus{outline: 0;}
+.search-input::selection {
+  background: #c7dfdf;
+}
 
 .search-btn {
   position: absolute;
@@ -716,7 +728,9 @@ button:focus {outline:0;}
   transform: translateY(-300%);
   transition: transform .5s ease-in-out;
 }
-
+.search-title::selection {
+  background: transparent;
+}
 .search-indicator {
   position: absolute;
   color: rgb(206, 204, 204);
@@ -748,6 +762,13 @@ button:focus {outline:0;}
   font-family: 'Amatic SC', cursive;
   font-size: 1em;
 }
+.pill:hover {
+  transform: scale(1.1, 1.1);
+  transition:  all .3s ease-in-out;
+}
+.pill::selection {
+  background: transparent;
+}
 
 .pill-close {
   position: relative;
@@ -759,6 +780,10 @@ button:focus {outline:0;}
   -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
   filter: grayscale(80%);
 }
+.pill-close::selection {
+  background: transparent;
+}
+
 .best-search {
   position: absolute;
   top: 61%;
@@ -870,26 +895,105 @@ button:focus {outline:0;}
   text-align: center;
 }
 
-.player-info-circle {
+.player-info {
+  background: transparent;
   position: absolute;
-  width: 2vw;
-  height: 2vw;
-  border-radius: 50%;
-  background: rgb(212, 212, 212);
-  right: 4%;
-  top: 86%;
-  margin: auto 2%;
-  z-index: 15;
-  transition: all .4s ease-in-out;
-}
-.player-info-circle:hover {
-  background: rgb(240, 240, 215);
-  transition: all .4s ease-in-out;
+  width: 12%;
+  height: 50%;
+  right: 0%;
+  top: 25%;
+  border-bottom-left-radius: 230px;
+  border-top-left-radius: 230px;
 }
 
-.player-info-circle img {
-  width: 80%;
+.player-info-circle {
+  position: absolute;
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  background: rgba(107, 107, 107, 0.9);
+  margin: 90% auto auto 45%;
+  z-index: 15;
+  transition: all .4s ease-in-out;
+  border: solid 2px rgb(240, 240, 240);
 }
+.player-info-circle:hover, .circle-upper:hover, .circle-down:hover {
+  background: rgb(6, 18, 26);
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  transform: scale(1.2, 1.2);
+  border: solid 2px rgb(5, 51, 78);
+}
+.player-info-circle img, .circle-upper img, .circle-down img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+}
+.player-info-circle img:hover, .circle-upper img:hover, .circle-down img:hover {
+  opacity: 1;
+}
+.circle-active {
+  transform: scale(1.1, 1.1);
+  transition: all .1 s ease-in-out;
+}
+.circle-upper {
+  position: absolute;
+  width: 1.3vw;
+  height: 1.3vw;
+  border-radius: 50%;
+  background: rgba(107, 107, 107, 0.9);
+  margin: 80% auto auto 35%;
+  z-index: 15;
+  border: solid .5px rgb(240, 240, 240);
+  transition: all .4s ease-in-out;
+}
+.circle-down {
+  position: absolute;
+  width: 1.3vw;
+  height: 1.3vw;
+  border-radius: 50%;
+  background: rgba(107, 107, 107, 0.9);
+  margin: 133% auto auto 35%;
+  z-index: 15;
+  border: solid .5px rgb(240, 240, 240);
+  transition: all .4s ease-in-out;
+}
+.player-info-indicator {
+  width: 0%;
+  height: 3vw;
+  background: transparent;
+  position: absolute;
+  right: 50%;
+  margin-top: 260%;
+  border-radius: 35px;
+  z-index: -1;
+  transition: all .5s ease-in-out;
+  transition-delay: 0s;
+}
+.player-info-indicator-active {
+  width: 300%;
+  transition-delay: 2s;
+}
+.player-info-indicator h4 {
+  display: none;
+}
+.player-info-indicator-active h4 {
+  display: block;
+  font-size: 2vw;
+  color: white;
+  font-family: 'Amatic SC', cursive;
+}
+/* .player-info-indicator span {
+  display: block;
+  position: relative;
+  top: 10%; 
+  left: 10%;
+  width: 50%;
+  font-size: 2vw;
+  color: white;
+  font-family: 'Amatic SC', cursive;
+} */
 
 .paused-div {
   position: absolute;

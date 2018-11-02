@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.46",
     "@material-ui/core": "^1.5.1",
+    "@material/slider": "^0.41.0",
     "@types/spotify-web-playback-sdk": "^0.1.2",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
