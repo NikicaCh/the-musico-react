@@ -33,19 +33,22 @@ class Seekbar extends React.Component {
     }
 
     componentDidMount () {
-        let width = 0;
-        let seconds = 0;
-        if(this.props.duration !== this.state.duration) {
-            this.setState({duration: this.props.duration})
-            document.getElementById("seekbar").style.width = `0%`
+        
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.duration !== this.state.duration) {
+            this.setState({duration: nextProps.duration})
+            // document.getElementById("seekbar").style.width = `0%`
         } else {
-            seconds = this.props.duration/1000;
-            console.log(seconds)
-            // document.getElementById("seekbar").style.width = "100%";
-            // document.getElementById("seekbar").style.transition = `width ${seconds}s ease-in-out`
-            setInterval(() => {
-                console.log("HAHA")
-            }, {seconds})
+            let seconds = nextProps.duration/100;
+            
+
+            document.getElementById("seekbar").style.width = "100%";
+            document.getElementById("seekbar").style.transition = `width ${seconds}s`
+            // setInterval(() => {
+            //     console.log("HAHA")
+            // }, seconds)
 
             // this.setState({duration: nextProps.duration})
             // console.log("HAHAHH", seconds)
@@ -57,13 +60,10 @@ class Seekbar extends React.Component {
             //     // console.log("HAHAHH", oneSec)
             // }, 10000)
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-
         this.setState({duration: nextProps.duration})
         
     }
+    
 
 
     render() {
