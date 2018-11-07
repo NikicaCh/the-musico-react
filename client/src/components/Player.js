@@ -507,7 +507,7 @@ class Player extends Component {
                 <div className="player-info">
                         {
                             this.state.context != ""
-                            ? <div className="circle-upper"><img src={require("../icons/next.png")}></img></div>
+                            ? <div className="circle-upper"><img src={require("../icons/next.png")} onClick={() => NextTrack(token)}></img></div>
                             : <div></div>
                         }
                             <input
@@ -527,7 +527,7 @@ class Player extends Component {
                     </div>
                         {
                             this.state.context != ""
-                            ? <div className="circle-down"><img src={require("../icons/back.png")}></img></div>
+                            ? <div className="circle-down"><img src={require("../icons/back.png")} onClick={() => PreviousTrack(token)}></img></div>
                             : <div></div>
                         }
                     

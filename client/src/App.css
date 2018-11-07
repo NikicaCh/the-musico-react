@@ -994,6 +994,9 @@ button:focus {outline:0;}
   border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
 }
+.circle-upper img::selection {
+  background: transparent;
+}
 .circle-down {
   position: absolute;
   width: 1.5vw;
@@ -1004,6 +1007,9 @@ button:focus {outline:0;}
   z-index: 15;
   border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
+}
+.circle-down img::selection {
+  background: transparent;
 }
 .slider-div {
   position: absolute;
