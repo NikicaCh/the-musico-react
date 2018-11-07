@@ -548,7 +548,7 @@ class Player extends Component {
                             <span className="speaker-percentage">{this.state.volume} %</span>
                                   
                     <div className="circle-left"><img src={require("../icons/rewind.png")} onClick={() => this.backwards(10)}></img></div>
-                    <div className="circle-right"><img src={require("../icons/fast-forward.png")} onClick={() => NextTrack(token)}></img></div>
+                    <div className="circle-right"><img src={require("../icons/fast-forward.png")} onClick={() => this.forwards(10)}></img></div>
                     <div
                         className="player-info-circle"
                         onClick={this.playPause}>
