@@ -1,9 +1,7 @@
-import React from 'react';
-import {Featuring, accessToken, PlayTrack, getDevices} from './Fetch';
-import $ from 'jquery';
-import Cookies from 'universal-cookie';
-
-
+import React from 'react'
+import {Featuring, accessToken, PlayTrack, getDevices} from './Fetch'
+import $ from 'jquery'
+import Cookies from 'universal-cookie'
 
 class BestSearch extends React.Component {
     constructor(props) {
@@ -52,6 +50,7 @@ class BestSearch extends React.Component {
         
     }
     componentWillReceiveProps(nextProps) {
+        console.log("TRACKS", this.props.restTracks, "ARTISTS", this.props.restArtists)
         let token = accessToken();
         this.setState({searched: nextProps.search, type: nextProps.type, name: nextProps.max})
         if(nextProps.type == "artist") {
@@ -98,28 +97,47 @@ class BestSearch extends React.Component {
             <div>
             {
                 render
-                ?   <div>
-                    <div className="container w-100 search-top">
-                        <div className="row w-100">
-                            <div className="col-md-3 mt-5 relative"> 
-                                <img id={this.props.trackId} src={this.props.image} className={`best-search-img ${this.props.type}-img`}></img>
-                                {/* <img className="play-hover" src={require("../icons/play-hover.png")}></img> */}
-                                <figcaption><span className="best-search-title">{this.props.name}</span></figcaption>    
+                ? <div className="container w-100 search-top">
+                            <div className="row other-results-title"><h2>Top result</h2></div>
+                            <div className="row w-100">
+                                <div className="col-md-3 mt-5 relative"> 
+                                    <img id={this.props.trackId} src={this.props.image} className={`best-search-img ${this.props.type}-img`}></img>
+                                    {/* <img className="play-hover" src={require("../icons/play-hover.png")}></img> */}
+                                    <figcaption><span className="best-search-title">{this.props.name}</span></figcaption>    
+                                </div>
+                                <div className="col-md-9 mt-5"> 
+                            {
+                                featuring 
+                                ?   <div>
+                                            <div className="row">
+                                                {this.state.featuring}
+                                            </div>
+                                    </div> 
+                                : <div></div>
+                            }
+                                </div>
+                            </div> 
+                            <div className="container w-100 other-results">
+                                <div className="row other-results-title"><h2>Other results</h2></div>
+                                <div className="container row bg-danger w-50">
+                                    <div className="rest-track">
+                                        <span> Queen Killer</span>
+                                        <span> Queen</span>
+                                        <span> Another one bites the dust Another one bites the dust</span>
+                                        <span> Queen</span>
+                                        <span> Don't stop me now</span>
+                                        <span> Queen</span>
+                                        <span> Queen Killer</span>
+                                        <span> Queen</span>
+                                        <span> Queen Killer</span>
+                                        <span> Queen</span>
+                                    </div>
+                                <div className="row bg-info"></div>
+                                    {/* <div className="bg-danger column-md-6">HELLO</div> */}
+
+                                </div>
                             </div>
-                            <div className="col-md-9 mt-5"> 
-                           {
-                               featuring 
-                               ?   <div>
-                                        <div className="row">
-                                            {this.state.featuring}
-                                        </div>
-                                   </div> 
-                               : <div></div>
-                           }
-                            </div>
-                        </div> 
-                    </div>                        
-                    </div>
+                    </div>                       
                 :<div></div>
             }
             </div>

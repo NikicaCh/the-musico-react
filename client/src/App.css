@@ -511,7 +511,7 @@ body {
 .dropdown {
   z-index: 5;
   position: absolute;
-  height: 5.5em;
+  height: auto;
   width: 8em;
   background: rgba(255, 255, 255, .7);
   right: 3.5em;
@@ -524,7 +524,7 @@ body {
   padding: 0 0 5px 0;
   font-size: 0.8em;
   text-align: center;
-  margin: 10px 20px 20px 0;
+  margin: 10px 20px 10px 0;
   padding: 10px 0;
 }
 .dropdown-item:hover {
@@ -798,6 +798,7 @@ button:focus {outline:0;}
   -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
   filter: grayscale(80%);
   border: none;
+  border-radius: 8px;
 }
 
 .track-img {
@@ -842,13 +843,11 @@ button:focus {outline:0;}
   left: 15%;
 }
 
-
-
 .results {
   position: absolute;
-  z-index: 15;
+  z-index: 150;
   width: 100vw;
-  height: 100%;
+  height: 50%;
   top: 50%;
   overflow: auto;
 }
@@ -882,9 +881,36 @@ button:focus {outline:0;}
   margin-top: 3%;
 }
 
+.other-results {
+  margin-top: 10%;
+}
+
+.other-results-title {
+  font-family: 'Anton', sans-serif;
+  color: rgb(212, 212, 212);
+  text-transform: uppercase;
+  font-size: 1.1vw;
+  background: #aa9f07;
+}
+
+.rest-track {
+  background: #5F9EA0;
+}
+.rest-track span {
+  display: table;
+  color: rgb(104, 104, 104);
+  font-family: 'Amatic SC', cursive;
+  font-size: 1vw;
+}
+.rest-track span:nth-child(odd){
+  font-size: 1.5vw;
+  display: inline;
+  word-wrap: none; 
+}
+
 .search-top {
   position: relative;
-  margin: 1% auto 5% auto;
+  margin: 1% auto 8% auto;
 }
 
 .play-track {
@@ -904,6 +930,7 @@ button:focus {outline:0;}
   top: 25%;
   border-bottom-left-radius: 230px;
   border-top-left-radius: 230px;
+  z-index: 10;
 }
 
 .player-info-circle {
@@ -917,12 +944,31 @@ button:focus {outline:0;}
   transition: all .4s ease-in-out;
   border: solid 2px rgb(240, 240, 240);
 }
-.player-info-circle:hover, .circle-upper:hover, .circle-down:hover {
+.player-info-circle img::selection {
+  background: transparent;
+}
+.player-info-circle:hover {
   background: rgb(6, 18, 26);
   cursor: pointer;
   transition: all .4s ease-in-out;
   transform: scale(1.2, 1.2);
   border: solid 2px rgb(5, 51, 78);
+}
+.player-info:hover .player-info-circle {
+  background: rgb(6, 18, 26);
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  transform: scale(1.2, 1.2);
+}
+.player-info:hover .circle-upper, .player-info:hover .circle-down {
+  background: rgb(6, 18, 26);
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  transform: scale(1.4, 1.4);
+  border: solid 2px rgb(5, 51, 78);
+}
+.player-info:hover input, .player-info:hover .speaker-img, .player-info:hover .speaker-percentage {
+  opacity: .8;
 }
 .player-info-circle img, .circle-upper img, .circle-down img {
   position: relative;
@@ -939,25 +985,32 @@ button:focus {outline:0;}
 }
 .circle-upper {
   position: absolute;
-  width: 1.3vw;
-  height: 1.3vw;
+  width: 1.5vw;
+  height: 1.5vw;
   border-radius: 50%;
   background: rgba(107, 107, 107, 0.9);
-  margin: 80% auto auto 35%;
+  margin: 75% auto auto 35%;
   z-index: 15;
-  border: solid .5px rgb(240, 240, 240);
+  border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
 }
 .circle-down {
   position: absolute;
-  width: 1.3vw;
-  height: 1.3vw;
+  width: 1.5vw;
+  height: 1.5vw;
   border-radius: 50%;
   background: rgba(107, 107, 107, 0.9);
-  margin: 133% auto auto 35%;
+  margin: 118% auto auto 35%;
   z-index: 15;
-  border: solid .5px rgb(240, 240, 240);
+  border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
+}
+.slider-div {
+  position: absolute;
+  background: transparent;
+  z-index: 15;
+  width: 20%;
+  height: 50%;
 }
 .player-info-indicator {
   width: 0%;
@@ -1203,3 +1256,197 @@ button:focus {outline:0;}
 }
 
 /* font-family: apercu-mono-regular */
+
+.featuring-playlists-row {
+  overflow: hidden;
+  z-index: 1000;
+  margin-top: 5%;
+  padding-bottom: 1%;
+  width: 70%;
+  height: 70%;
+  margin: 0 auto;
+}
+
+.featuring-playlists-row div img {
+  height: 100%;
+  width: 100%;
+}
+
+input[type=range] {
+  /*removes default webkit styles*/
+  transform: rotate(-90deg);
+  -webkit-appearance: none;
+  position: absolute;
+  top: 22%;
+  right: 13.5%;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  
+  /*fix for FF unable to apply focus style bug */
+  border: 1px solid rgba(107, 107, 107, 0.9);
+  
+  /*required for proper track sizing in FF*/
+  width: 60%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100px;
+  height: 2px;
+  background: rgba(107, 107, 107, 0.9);
+  border: none;
+  border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: rgb(5, 51, 78);
+  margin-top: -7px;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: rgba(107, 107, 107, 0.9);
+}
+
+input[type=range]::-moz-range-track {
+  width: 100px;
+  height: 3px;
+  background: rgba(107, 107, 107, 0.9);
+  border: none;
+  border-radius: 3px;
+}
+input[type=range]::-moz-range-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: rgb(5, 51, 78);
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring{
+  outline: 1px solid white;
+  outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+  width: 300px;
+  height: 5px;
+  
+  /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+  background: transparent;
+  
+  /*leave room for the larger thumb to overflow with a transparent border */
+  border-color: transparent;
+  border-width: 6px 0;
+
+  /*remove default tick marks*/
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #777;
+  border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: rgb(5, 51, 78);
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ccc;
+}
+
+input[type=range]::-ms-track {
+  width: 300px;
+  height: 5px;
+  
+  /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+  background: transparent;
+  
+  /*leave room for the larger thumb to overflow with a transparent border */
+  border-color: transparent;
+  border-width: 6px 0;
+
+  /*remove default tick marks*/
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #777;
+  border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: rgb(5, 51, 78);
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ccc;
+}
+
+.speaker-img {
+  width: 12%;
+  height: 7%;
+  position: absolute;
+  z-index: 15;
+  top: 19%;
+  right: 13.5%;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+}
+.speaker-img::selection {
+  background: transparent;
+}
+.speaker-percentage {
+  position: absolute;
+  z-index: 15;
+  color: white;
+  font-family: 'Amatic SC', cursive;
+  font-size: 1vw;
+  background: #888;
+  padding: 1%;
+  top: 10%;
+  right: 13%;
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+}
+.speaker-percentage::selection {
+  background: transparent;
+}
+#seekbar-div {
+  position: absolute;
+  width: 80%;
+  height: .8%;
+  background: rgb(188, 189, 194);
+  top: 95%;
+  left: 10%;
+  cursor: pointer;
+}
+#seekbar {
+  position: relative;
+  width: 0%;
+  height: 100%;
+  background: rgb(22, 70, 212);
+  z-index: 20;
+  transition: width ease-in-out;
+}

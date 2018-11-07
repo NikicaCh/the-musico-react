@@ -196,6 +196,17 @@ export const New_Releases = () => {
 
 }
 
+export const FeaturingPlaylists = (token) => {
+    let promise = Axios(`https://api.spotify.com/v1/browse/featured-playlists`, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    })
+    return promise;
+}
+
 export const PlayTrack = (trackUri, token, deviceId) => {
     $.ajax({
         url: `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,

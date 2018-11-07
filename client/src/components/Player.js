@@ -1,28 +1,29 @@
-import React, {Component} from "react";
-import '../App.css';
-import {getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch';
-import CookiePopUp from './cookiePopUp';
-import Cookies from 'universal-cookie';
+import React, {Component} from "react"
+import '../App.css'
+import {getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch'
+import CookiePopUp from './cookiePopUp'
+import Cookies from 'universal-cookie'
 // import ReactDOM from 'react-dom';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// import Slider from 'material-ui/Slider';
 // import Navbar from './navbar';
 
 
-import Photo from './photo';
-import DisplayText from './display-text';
-import LyricsDiv from './lyrics';
-import Modal from './modal';
-import Search from './Search';
-import Spinner from './Spinner';
-import stringSimilarity  from 'string-similarity';
-// import scrapeIt from 'scrape-it';
-import cheerio from 'cheerio';
-import Axios from "../../node_modules/axios";
-// import { stringify } from "querystring";
-import $ from 'jquery';
-import computerName from 'computer-name';
+import Photo from './photo'
+import DisplayText from './display-text'
+import LyricsDiv from './lyrics'
+import Modal from './modal'
+import Search from './Search'
+import Spinner from './Spinner'
+import stringSimilarity  from 'string-similarity'
+// import scrapeIt from 'scrape-it'
+import cheerio from 'cheerio'
+import Axios from "../../node_modules/axios"
+// import { stringify } from "querystring"
+import $ from 'jquery'
+import computerName from 'computer-name'
+import {MDCSlider} from '@material/slider'
+import Seekbar from './seekbar'
 
 
 class Player extends Component {
@@ -53,6 +54,8 @@ class Player extends Component {
             volume: 100,
             numberofParagraphs: 0,
             cookieUsed: false,
+            context: "",
+            speakerSrc: ""
         }
         this.getLyrics = this.getLyrics.bind(this)
         this.setCurrentTrack = this.setCurrentTrack.bind(this)
@@ -67,6 +70,7 @@ class Player extends Component {
         this.handleKeyPress = this.handleKeyPress.bind(this)
         this.searchModal = this.searchModal.bind(this)
         this.playPause = this.playPause.bind(this)
+        this.handleVolumeChange = this.handleVolumeChange.bind(this)
     } 
     toggleShuffle() {
         let token = accessToken();
@@ -118,6 +122,10 @@ class Player extends Component {
         this.setState({slider: this.transform(value)});
         SeekPosition(token, value);
     };
+    handleVolumeChange(value) {
+        let token = accessToken();
+        Volume(token, value)
+    }
     transform(value) {
       return Math.round((Math.exp(this.state.power * value / this.state.max) - 1) / (Math.exp(this.state.power) - 1) * this.state.max);
     }
@@ -190,6 +198,14 @@ class Player extends Component {
             console.log(data)
             if(data) {
                 let playing = data.data.is_playing;
+                let context = "";
+                if(data.data.context) {
+                    context = data.data.context.type
+                    this.setState({context})
+                } else {
+                    context = "";
+                    this.setState({context})
+                }
                 this.setState({playing})
                 if(data.data.item) {
                     this.setState({trackId: data.data.item.id})
@@ -270,10 +286,10 @@ class Player extends Component {
             console.log(event.keyCode)
             let code = event.keyCode;
             let token = accessToken();
-                if(code === 37 && $("#search").hasClass("hide")) { // left arrow
+                if(code === 37 && $("#search").hasClass("hide") && this.state.context !== "") { // left arrow
                     PreviousTrack(token);
                 }
-                else if(code === 39 && $("#search").hasClass("hide")) { //right arrow
+                else if(code === 39 && $("#search").hasClass("hide") && this.state.context !== "") { //right arrow
                     NextTrack(token);
                 }
                 else if(code === 32 && $("#search").hasClass("hide")) { //space
@@ -305,6 +321,26 @@ class Player extends Component {
     searchModal() {
         $("#search").toggleClass("hide")
     }
+
+    seek(event) {
+        let progress = 0;
+        if(event.target.id == "seekbar-div") {
+            let token = accessToken();
+            progress = ((event.clientX-event.target.offsetLeft) / event.target.offsetWidth * 100);
+            document.getElementById("seekbar").style.width = `${progress}%`
+            let seekVal = Math.ceil((this.state.max * progress) / 100);
+            console.log(seekVal)
+            SeekPosition(token, seekVal)
+        } else {
+            let width = event.target.style.width;
+            let widthNum = width.toString().slice(0, width.length -1)
+            let parent = document.getElementById("seekbar-div");
+            let childX = event.pageX - parent.offsetLeft;
+            progress = widthNum*childX
+            let seekVal = Math.ceil((this.state.max * progress) / 100)
+            console.log(progress)
+        }
+    }
     componentDidMount() {
         document.onkeydown = this.handleKeyPress; //handle keypress
         let lastScrollTop = window.scrollTop;
@@ -312,10 +348,38 @@ class Player extends Component {
         let loading = true;
         let musicoId;
         const access = accessToken();
+        
+        $("#volume-slider").on("change", (e) => {
+            this.setState({volume: e.target.value}, () => {
+                this.handleVolumeChange(this.state.volume)
+            })
+        })
+        
+        // document.getElementById('seekbar-div').addEventListener("click", function(event){
+        //     getCurrentPlayback(access) // get info about the current spotify playback
+        //     .then(data => {
+        //         if(data) {
+        //             this.setState({max: data.data.item.duration_ms}, () => {
+        //                 let max = this.state.max;
+        //                 let progress = (event.clientX-this.offsetLeft) / this.offsetWidth * 100;
+        //                 document.getElementById("seekbar").style.width = `${progress}%`
+        //                 let prog = Math.ceil(progress)
+        //                 console.log("MAX", max)
+        //                 let seek = (max/100)*prog
+        //                 console.log(seek) 
+        //                 let position = (max * progress/100);
+        //                 console.log(position)
+        //                 SeekPosition(access, seek)
+        //             })
+        //         }
+        //     });
+        // })
+            
         let computer = computerName();
         getUser(access)
         .then((data) => {
             if(data) {
+                console.log(data.data.progres_ms)
                 this.setState({userEmail: data.data.email, userId: data.data.id}, () => {
                     let cookies = new Cookies();
                     console.log("HERE IT IS", cookies.get(`${this.state.userId}cookie`))
@@ -398,6 +462,16 @@ class Player extends Component {
     }
     render() {
         let loading = this.state.loading;
+        let volume = this.state.volume;
+        let token = accessToken();
+        let src="";
+        if(this.state.volume >= 60) {
+            src=require("../icons/speaker loud.png")
+        } else if(this.state.volume < 60 && this.state.volume > 0) {
+            src=require("../icons/speaker medium.png")
+        } else {
+            src=require("../icons/speaker mute.png")
+        }
         return (
             <div id="player-div">
                 {loading 
@@ -432,11 +506,32 @@ class Player extends Component {
                     lyricsPosition={this.state.lyricsPosition}
                 />
                 <div className="player-info">
+                        {
+                            this.state.context != ""
+                            ? <div className="circle-upper"><img src={require("../icons/next.png")}></img></div>
+                            : <div></div>
+                        }
+                            <input
+                                id="volume-slider"
+                                type="range"
+                                min={0}
+                                max={100}
+                                step={5}
+                                defaultValue={volume}>
+                            </input>
+                            <img className="speaker-img" src={src}></img>
+                            <span className="speaker-percentage">{this.state.volume} %</span>
                     <div
                         className="player-info-circle"
                         onClick={this.playPause}>
                         <img src={ this.state.playing ? require('../icons/pause.png') : require('../icons/play.png')}></img>
                     </div>
+                        {
+                            this.state.context != ""
+                            ? <div className="circle-down"><img src={require("../icons/back.png")}></img></div>
+                            : <div></div>
+                        }
+                    
                 </div>
                 {
                     this.state.cookieUsed
@@ -454,7 +549,7 @@ class Player extends Component {
                         <span className="pause-help">Press "Space" to resume</span>
                     </div>
                 }
-                
+                <Seekbar duration={this.state.max}/>
             </div>
         )
     }

@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import queryString from 'query-string';
-import $ from "jquery";
+import React, { Component } from 'react'
+import queryString from 'query-string'
+import $ from "jquery"
 
-import Result from './searchResults/Result';
-import {accessToken, SearchFor} from './Fetch';
-import BestSearch from './bestSearch';
-import Cookies from 'universal-cookie';
+import Result from './searchResults/Result'
+import {accessToken, SearchFor, FeaturingPlaylists} from './Fetch'
+import BestSearch from './bestSearch'
+import Cookies from 'universal-cookie'
+import FeaPlaylists from './featuringPlaylists'
 
 
 class Search extends Component {
@@ -22,33 +23,37 @@ class Search extends Component {
           noData2: false,
           trackId: "",
           artistId: "",
+          playlistScrolling: false,
+          restTracks: [],
+          restArtists: []
+
         }
         this.handleChange = this.handleChange.bind(this);
         this.search = this.search.bind(this);
         // this.handleKeyPress = this.handleKeyPress.bind(this);
     };
     search(token, value) {
-        SearchFor(token, value, "track", 10)
+        SearchFor(token, value, "track", 50)
             .then((data) => {
                 if(data && data.data && data.data.tracks && data.data.tracks.items){
                     let array = data.data.tracks.items
                     if(array.length) {
                         let maxPop = Math.max.apply(Math, array.map(function(track) { return track.popularity; }))
                         let mostPopularTrack = array.find((track) => { return track.popularity === maxPop}) // the most popular track object
-                        this.setState({track: mostPopularTrack, trackId:mostPopularTrack.uri})
+                        this.setState({track: mostPopularTrack, trackId:mostPopularTrack.uri, restTracks: array})
                     } 
                 } else {
                     this.setState({noData1: true})
                 }
             })
-            SearchFor(token, value, "artist", 10)
+            SearchFor(token, value, "artist", 50)
             .then((data) => {
                 if(data && data.data && data.data.artists && data.data.artists.items) {
                     let array = data.data.artists.items;
                     if(array.length) {
                         let maxPop = Math.max.apply(Math, array.map(function(artist) { return artist.popularity; }))
                         let mostPopularArtist = array.find((artist) => { return artist.popularity === maxPop}) // the most popular artist object
-                        this.setState({artist: mostPopularArtist, artistId: mostPopularArtist.id }, () => { // after both track and artist search finishes
+                        this.setState({artist: mostPopularArtist, artistId: mostPopularArtist.id, restArtists: array}, () => { // after both track and artist search finishes
                             let trackPop = this.state.track.popularity;
                             let artistPop = this.state.artist.popularity;
                             
@@ -107,7 +112,7 @@ class Search extends Component {
         })
         $(".pill").on("click", (e) => {
             console.log(e.target.id)
-            if(e.target.id === "pill1" || e.target.id === "pill2" || e.target.id === "pill3") {
+            if(e.target.id === "pill1" || e.target.id === "pill2" || e.target.id === "pill3") { //if you click pill 1, 2 or 3
                 let value = e.target.innerText;
                 let token = accessToken();
                 $(".search-inner").addClass("search-searched")
@@ -117,6 +122,9 @@ class Search extends Component {
                 this.setState({searchValue: value}, () => {
                     this.search(token, value);
                 }) 
+            } else if(e.target.id === "pill5") { //if you click pill 5
+                FeaturingPlaylists(token)
+                .then(data => console.log(data.data.playlists.items))
             }
         }) 
     }
@@ -171,7 +179,7 @@ class Search extends Component {
                     <span id="pill2" className="pill">{mostRecent2}<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
                     <span id="pill3" className="pill">{lastTrack}<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
                     <span id="pill4" className="pill">new_releases<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
-                    <span id="pill5" className="pill">new releases <img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
+                    <span id="pill5" className="pill">featuring<img className="pill-close" src={require("../icons/pill-close.png")}></img></span>
                 </div>
                 <div className="row">
                     { value
@@ -181,16 +189,20 @@ class Search extends Component {
                 </div>
                 <div>
                 <div className="results hide">
-                <BestSearch
-                        type={type}
-                        image={this.state.maxImg}
-                        name={this.state.max}
-                        artistId={this.state.artistId}
-                        deviceId={this.props.deviceId}
-                        trackId={this.state.trackId} 
-                        userId={this.props.userId}
-                        search={this.state.searchValue}/>
-                </div>
+                    <BestSearch
+                            type={type}
+                            image={this.state.maxImg}
+                            name={this.state.max}
+                            artistId={this.state.artistId}
+                            deviceId={this.props.deviceId}
+                            trackId={this.state.trackId} 
+                            userId={this.props.userId}
+                            search={this.state.searchValue}
+                            restTracks={this.state.restTracks}
+                            restArtists={this.state.restArtists}/>
+                    {/* <FeaPlaylists /> */}
+                    <div></div>
+                </div>                
                 </div>
             </div>
         );
