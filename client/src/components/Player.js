@@ -23,7 +23,6 @@ import Axios from "../../node_modules/axios"
 import $ from 'jquery'
 import computerName from 'computer-name'
 import {MDCSlider} from '@material/slider'
-import Seekbar from './seekbar'
 
 
 class Player extends Component {
@@ -549,7 +548,6 @@ class Player extends Component {
                         <span className="pause-help">Press "Space" to resume</span>
                     </div>
                 }
-                <Seekbar duration={this.state.max}/>
             </div>
         )
     }
