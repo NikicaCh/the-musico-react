@@ -70,7 +70,33 @@ class Player extends Component {
         this.searchModal = this.searchModal.bind(this)
         this.playPause = this.playPause.bind(this)
         this.handleVolumeChange = this.handleVolumeChange.bind(this)
+        this.backwards = this.backwards.bind(this)
+        this.forwards = this.forwards.bind(this)
     } 
+    
+    forwards(secs) {
+        let token = accessToken();
+        getCurrentPlayback(token)
+        .then(data => {
+            if(data) {
+                let plus = secs*1000
+                let progress = data.data.progress_ms + plus
+                SeekPosition(token, progress )
+            }
+        })
+    }
+
+    backwards(secs) {
+        let token = accessToken();
+        getCurrentPlayback(token)
+        .then(data => {
+            if(data) {
+                let minus = secs*1000
+                let progress = data.data.progress_ms - minus
+                SeekPosition(token, progress )
+            }
+        })
+    }
     toggleShuffle() {
         let token = accessToken();
         Shuffle(token);
@@ -194,8 +220,8 @@ class Player extends Component {
         let genius = getGeniusKey();
         getCurrentPlayback(access) // get info about the current spotify playback
         .then(data => {
-            console.log(data)
             if(data) {
+                console.log(data)
                 let playing = data.data.is_playing;
                 let context = "";
                 if(data.data.context) {
@@ -520,6 +546,9 @@ class Player extends Component {
                             </input>
                             <img className="speaker-img" src={src}></img>
                             <span className="speaker-percentage">{this.state.volume} %</span>
+                                  
+                    <div className="circle-left"><img src={require("../icons/rewind.png")} onClick={() => this.backwards(10)}></img></div>
+                    <div className="circle-right"><img src={require("../icons/fast-forward.png")} onClick={() => NextTrack(token)}></img></div>
                     <div
                         className="player-info-circle"
                         onClick={this.playPause}>

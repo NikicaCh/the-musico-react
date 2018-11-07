@@ -960,24 +960,25 @@ button:focus {outline:0;}
   transition: all .4s ease-in-out;
   transform: scale(1.2, 1.2);
 }
-.player-info:hover .circle-upper, .player-info:hover .circle-down {
+.player-info:hover .circle-upper, .player-info:hover .circle-down, .player-info:hover .circle-left, .player-info:hover .circle-right {
   background: rgb(6, 18, 26);
   cursor: pointer;
   transition: all .4s ease-in-out;
   transform: scale(1.4, 1.4);
   border: solid 2px rgb(5, 51, 78);
 }
-.player-info:hover input, .player-info:hover .speaker-img, .player-info:hover .speaker-percentage {
+.player-info:hover input, .player-info:hover .speaker-img, .player-info:hover .speaker-percentage, .player-info:hover .circle-upper, .player-info:hover .circle-down, .player-info:hover .circle-left, .player-info:hover .circle-right {
   opacity: .8;
 }
-.player-info-circle img, .circle-upper img, .circle-down img {
+.player-info-circle img, .circle-upper img, .circle-down img, .circle-left img, .circle-right img {
   position: relative;
   width: 100%;
   height: 100%;
   opacity: .5;
 }
-.player-info-circle img:hover, .circle-upper img:hover, .circle-down img:hover {
+.player-info-circle img:hover, .circle-upper img:hover, .circle-down img:hover, .circle-left img:hover, .circle-right img:hover {
   opacity: 1;
+  transition: opacity .5s ease-in-out;
 }
 .circle-active {
   transform: scale(1.1, 1.1);
@@ -989,10 +990,11 @@ button:focus {outline:0;}
   height: 1.5vw;
   border-radius: 50%;
   background: rgba(107, 107, 107, 0.9);
-  margin: 75% auto auto 35%;
+  margin: 74% auto auto 35%;
   z-index: 15;
   border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
+  opacity: 0;
 }
 .circle-upper img::selection {
   background: transparent;
@@ -1003,12 +1005,36 @@ button:focus {outline:0;}
   height: 1.5vw;
   border-radius: 50%;
   background: rgba(107, 107, 107, 0.9);
-  margin: 118% auto auto 35%;
+  margin: 119% auto auto 35%;
   z-index: 15;
   border: solid 2px rgb(240, 240, 240);
   transition: all .4s ease-in-out;
+  opacity: 0;
 }
 .circle-down img::selection {
+  background: transparent;
+}
+.circle-left, .circle-right {
+  position: absolute;
+  width: 1.5vw;
+  height: 1.5vw;
+  border-radius: 50%;
+  background: rgba(107, 107, 107, 0.9);
+  z-index: 15;
+  border: solid 2px rgb(240, 240, 240);
+  transition: all .4s ease-in-out;
+  opacity: 0;
+}
+.circle-left img::selection {
+  background: transparent;
+}
+.circle-left {
+  margin: 97% auto auto -10%;
+}
+.circle-right {
+  margin: 97% auto auto 10%;
+}
+.circle-right img::selection {
   background: transparent;
 }
 .slider-div {
