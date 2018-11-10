@@ -113,13 +113,13 @@ class Search extends Component {
         $(".pill").on("click", (e) => {
             console.log(e.target.id)
             if(e.target.id === "pill1" || e.target.id === "pill2" || e.target.id === "pill3") { //if you click pill 1, 2 or 3
-                let value = e.target.innerText;
-                let token = accessToken();
-                $(".search-inner").addClass("search-searched")
-                $(".search-title").addClass("title-searched")
-                $(".pills-row").addClass("pills-searched")
-                $(".results").attr("class", "results")
                 this.setState({searchValue: value}, () => {
+                    let value = e.target.innerText;
+                    let token = accessToken();
+                    $(".search-inner").addClass("search-searched")
+                    $(".search-title").addClass("title-searched")
+                    $(".pills-row").addClass("pills-searched")
+                    $(".results").attr("class", "results")
                     this.search(token, value);
                 }) 
             } else if(e.target.id === "pill5") { //if you click pill 5
