@@ -48,7 +48,7 @@ app.get('/login', function(req, res) {
 res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
     response_type: 'code',
-    client_id: process.env.SPOTIFY_CLIENT_ID,
+    client_id: "73fcd0fee54c4f9f93247aaf6f42a92f",
     scope: "user-modify-playback-state user-read-currently-playing user-library-modify streaming user-read-email user-follow-read user-read-private user-library-read playlist-read-private user-read-playback-state app-remote-control playlist-read-collaborative user-read-recently-played user-read-birthdate playlist-modify-public playlist-modify-private user-follow-modify user-top-read",
     redirect_uri
     }))
@@ -64,7 +64,7 @@ app.get('/callback', function(req, res) {
       },
       headers: {
         'Authorization': 'Basic ' + (new Buffer(
-          process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+          "73fcd0fee54c4f9f93247aaf6f42a92f" + ':' + "9ddf08190dcd46f193274d19525fdfda"
         ).toString('base64'))
       },
       json: true
@@ -72,7 +72,7 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       access_token = body.access_token;
       refresh_token = body.refresh_token;
-      genius = process.env.GENIUS_API_KEY;
+      genius = "s7fSjrW13WNvANF92LOPdwvkGNaxdCj0rqYbK85SREFMX2PXHc74sppO75_iIS6O";
       let uri = process.env.FRONTEND_URI || 'http://localhost:3000';
       res.cookie("access",access_token)
       console.log(access_token)
