@@ -101,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch(`http://localhost:${process.env.PORT}/`);
+        const response = await fetch(`http://localhost:${process.env.PORT}`);
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post(`http://localhost:${process.env.PORT}/`, {
+        Axios.post(`http://localhost:${process.env.PORT}`, {
                     data: {
                         url,
                         track
