@@ -9,6 +9,8 @@ let $ = require("jquery")
 let cookieParser = require("cookie-parser")
 // use it before all route definitions
 import path from 'path'
+require('dotenv').config()
+
 
 let url = "";
 let prevUrl = "";
@@ -72,7 +74,7 @@ app.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       access_token = body.access_token;
       refresh_token = body.refresh_token;
-      genius = prcess.env.GENIUS_API_KEY;
+      genius = process.env.GENIUS_API_KEY;
       let uri = process.env.FRONTEND_URI || 'http://localhost:3000';
       res.cookie("access",access_token)
       console.log(access_token)
