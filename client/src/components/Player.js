@@ -53,7 +53,7 @@ class Player extends Component {
             numberofParagraphs: 0,
             cookieUsed: false,
             context: "",
-            speakerSrc: "",
+            speakerSrc: ""
         }
         this.getLyrics = this.getLyrics.bind(this)
         this.setCurrentTrack = this.setCurrentTrack.bind(this)
@@ -101,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch(`http://localhost:${process.env.PORT}`);
+        const response = await fetch('http://localhost:3001');
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post(`http://localhost:${process.env.PORT}`, {
+        Axios.post("http://localhost:3001", {
                     data: {
                         url,
                         track
