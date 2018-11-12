@@ -431,11 +431,7 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
-            async () => {
-                const response = await("/login")
-                const access = await response.json();
-                let cookies = new Cookies();
-                cookies.set("access", access)
+                window.location.replace(`http://localhost:${process.env.PORT}/login`)
             }
         });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
