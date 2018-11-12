@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import '../App.css'
-import {getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch'
+import { getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch'
 import CookiePopUp from './cookiePopUp'
 import Cookies from 'universal-cookie'
 // import ReactDOM from 'react-dom';
@@ -430,7 +430,7 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { window.location.replace("login") });
+        player.addListener('authentication_error', ({ message }) => { window.location.replace(`http://localhost:${process.env.PORT}/login`) });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             

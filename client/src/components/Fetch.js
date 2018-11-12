@@ -4,21 +4,17 @@ import stringSimilarity  from 'string-similarity';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 
-
-
-
-
 //Get the accessToken from the cookies
 export const accessToken = () => {
     const cookies =  new Cookies();
     let token = cookies.get("access")
-    return token;
+    return "BQBROH8DGsH7OsNavT8Zm8SpHU_Ar3TbU4T2suzOg56ESEH92xM_lBhVlD2P6Kj4slDKGyXMLx52k6Yvf7tlwNyGzHwcjAsMkLYRsPIl4ASNgqk9qCi250U6GnH9OBvbWN5ZKlXVDuw8y7Sd8tJaI_3vsjpFEwfoLSJRNjrtS5L0pcAkxkv7PaO1kOZSoJXUQd2T7UxHDRqMEhezQQeh6SYg22UysHWJRb_XqhOpV-8lQSwK8x9GM4KJhJu1iMoKa-gjktsyVo04iYHn3WXG9E2hul9E4FPXaVVKqjAmatUG-L4";
 }
 
 export const getGeniusKey = () => {
     const cookies = new Cookies();
     let genius = cookies.get("genius");
-    return genius;
+    return "s7fSjrW13WNvANF92LOPdwvkGNaxdCj0rqYbK85SREFMX2PXHc74sppO75_iIS6O";
 }
 
 //Get playlists promise
