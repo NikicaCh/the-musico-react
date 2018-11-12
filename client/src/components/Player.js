@@ -430,7 +430,7 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { window.location.replace("http://localhost:3001/login") });
+        player.addListener('authentication_error', ({ message }) => { window.location.replace("/login") });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
