@@ -433,7 +433,7 @@ class Player extends Component {
         player.addListener('authentication_error', ({ message }) => {
                 window.location.replace(`http://localhost:${process.env.PORT}/login`)
             }
-        });
+        );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
