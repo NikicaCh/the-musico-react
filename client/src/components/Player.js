@@ -430,7 +430,7 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { console.log("REDIRECTED"); window.location.replace(`http://localhost:${process.env.PORT}/login`) });
+        player.addListener('authentication_error', ({ message }) => { console.log("REDIRECTED", process.env.PORT)});
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
