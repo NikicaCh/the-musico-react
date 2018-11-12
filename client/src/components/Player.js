@@ -431,7 +431,10 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { window.location.replace(`http://localhost:${process.env.PORT}/login`)}, this.setState({backPort: process.env.PORT}));
+        player.addListener('authentication_error', ({ message }) => { 
+            window.location.replace(`http://localhost:${process.env.PORT}/login`)
+            this.setState({backPort: process.env.PORT})
+        });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
