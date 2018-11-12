@@ -54,7 +54,6 @@ class Player extends Component {
             cookieUsed: false,
             context: "",
             speakerSrc: "",
-            backPort: 0;
         }
         this.getLyrics = this.getLyrics.bind(this)
         this.setCurrentTrack = this.setCurrentTrack.bind(this)
@@ -102,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch(`http://localhost:${this.state.backPort}`);
+        const response = await fetch(`http://localhost:${process.env.PORT}`);
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -167,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post(`http://localhost:${this.state.backPort}`, {
+        Axios.post(`http://localhost:${process.env.PORT}`, {
                     data: {
                         url,
                         track
@@ -431,10 +430,7 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { 
-            window.location.replace(`http://localhost:${process.env.PORT}/login`)
-            this.setState({backPort: process.env.PORT})
-        });
+        player.addListener('authentication_error', ({ message }) => { window.location.replace(`http://localhost:${process.env.PORT}/login`) });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
