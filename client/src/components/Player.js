@@ -430,7 +430,14 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => {window.location.replace(`https://localhost:${process.env.PORT}/login`) });
+        player.addListener('authentication_error', ({ message }) => {
+            async () => {
+                const response = await("/login")
+                const access = await response.json();
+                let cookies = new Cookies();
+                cookies.set("access", access)
+            }
+        });
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             
