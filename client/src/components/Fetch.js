@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 export const Port = async () => {
     const response = await fetch('/port')
     const port = await response.json()
-    console.log(port)
+    return port;
 }
 
 //Get the accessToken from the cookies
