@@ -366,6 +366,7 @@ class Player extends Component {
         }
     }
     componentDidMount() {
+        console.log("ENV", process.env)
         document.onkeydown = this.handleKeyPress; //handle keypress
         let lastScrollTop = window.scrollTop;
         this.setState({loading: true})
@@ -431,7 +432,7 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
-                window.location.replace(`http://localhost:${process.env.PORT}/login`)
+                // window.location.replace(`http://localhost:${process.env.NODE_ENV}/login`)
             }
         );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
