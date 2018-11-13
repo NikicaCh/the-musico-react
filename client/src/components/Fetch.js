@@ -4,6 +4,11 @@ import stringSimilarity  from 'string-similarity';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 
+export const fetchToken = async () => {
+    const response = await fetch('/login')
+    const tokens = await response.json()
+}
+
 //Get the accessToken from the cookies
 export const accessToken = () => {
     const cookies =  new Cookies();

@@ -79,6 +79,11 @@ app.get('/callback', function(req, res) {
       res.cookie("access",access_token)
       console.log(access_token)
       res.cookie("genius", genius)
+      let tokens = {
+          spotify: access_token,
+          genius
+      }
+      res.json(tokens)
       res.redirect(uri)
     })
 })
