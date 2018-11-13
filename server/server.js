@@ -42,9 +42,9 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers",  "Content-Type");
     next();
 });
-const staticFiles = express.static(path.join(__dirname, '../../client/build'))
-// pass the static files (react app) to the express app. 
-app.use(staticFiles)
+// const staticFiles = express.static(path.join(__dirname, '../../client/build'))
+// // pass the static files (react app) to the express app. 
+// app.use(staticFiles)
 
 app.get('/login', function(req, res) {
 res.redirect('https://accounts.spotify.com/authorize?' +
@@ -79,12 +79,12 @@ app.get('/callback', function(req, res) {
       res.cookie("access",access_token)
       console.log(access_token)
       res.cookie("genius", genius)
-    //   let tokens = {
-    //       spotify: access_token,
-    //       genius
-    //   }
-    //   res.json(tokens)
-      res.redirect(uri)
+      let tokens = {
+          spotify: access_token,
+          genius
+      }
+      res.send(tokens)
+    //   res.redirect(uri)
     })
 })
 
