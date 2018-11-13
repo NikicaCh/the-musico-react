@@ -127,6 +127,10 @@ app.post("/reportLyrics", (req, res) => {
     console.log(data.data.trackId)
 });
 
+app.get("/port", (req, res) => {
+    res.send(process.env.port)
+})
+
 
 
 

@@ -4,9 +4,10 @@ import stringSimilarity  from 'string-similarity';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 
-export const fetchToken = async () => {
-    const response = await fetch('/login')
-    const tokens = await response.json()
+export const Port = async () => {
+    const response = await fetch('/port')
+    const port = await response.json()
+    console.log(port)
 }
 
 //Get the accessToken from the cookies
