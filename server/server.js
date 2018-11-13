@@ -75,15 +75,15 @@ app.get('/callback', function(req, res) {
       access_token = body.access_token;
       refresh_token = body.refresh_token;
       genius = process.env.GENIUS_API_KEY;
-      let uri = process.env.FRONTEND_URI || 'http://localhost:3000';
+      let uri = "https://the-musico.herokuapp.com/";
       res.cookie("access",access_token)
       console.log(access_token)
       res.cookie("genius", genius)
-      let tokens = {
-          spotify: access_token,
-          genius
-      }
-      res.json(tokens)
+    //   let tokens = {
+    //       spotify: access_token,
+    //       genius
+    //   }
+    //   res.json(tokens)
       res.redirect(uri)
     })
 })
