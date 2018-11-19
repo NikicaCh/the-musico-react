@@ -32,7 +32,7 @@ var refresh_token = "";
 var genius = "";
 
 var app = express();
-var port = process.env.port || 3001;
+var port = process.env.PORT || 3001;
 
 var redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3001/callback';
 var code = "";
