@@ -432,7 +432,6 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
-            let port = Port();
             window.location.replace(`/login`)
             }
         );
