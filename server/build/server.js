@@ -4,6 +4,10 @@ var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var express = require('express');
@@ -17,6 +21,8 @@ var $ = require("jquery");
 var cookieParser = require("cookie-parser");
 // use it before all route definitions
 
+require('dotenv').config();
+
 var url = "";
 var prevUrl = "";
 var lyrics = "";
@@ -26,7 +32,7 @@ var refresh_token = "";
 var genius = "";
 
 var app = express();
-var port = process.env.PORT || 3001;
+var port = process.env.port || 3001;
 
 var redirect_uri = process.env.REDIRECT_URI || 'http://localhost:3001/callback';
 var code = "";
@@ -42,6 +48,9 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
+// const staticFiles = express.static(path.join(__dirname, '../../client/build'))
+// // pass the static files (react app) to the express app. 
+// app.use(staticFiles)
 
 app.get('/login', function (req, res) {
     res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
@@ -69,10 +78,14 @@ app.get('/callback', function (req, res) {
         access_token = body.access_token;
         refresh_token = body.refresh_token;
         genius = process.env.GENIUS_API_KEY;
-        var uri = process.env.FRONTEND_URI || 'http://localhost:3000';
+        var uri = "https://the-musico.herokuapp.com/";
         res.cookie("access", access_token);
         console.log(access_token);
         res.cookie("genius", genius);
+        var tokens = {
+            spotify: access_token,
+            genius: genius
+        };
         res.redirect(uri);
     });
 });
@@ -112,6 +125,10 @@ app.post("/reportLyrics", function (req, res) {
     res.json();
     var data = req.body;
     console.log(data.data.trackId);
+});
+
+app.get("/port", function (req, res) {
+    res.send(process.env.port);
 });
 
 app.listen(port, function () {
