@@ -432,7 +432,7 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
-            window.location.href="http://localhost:3000/login"
+            window.location.replace("login")
             }
         );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
