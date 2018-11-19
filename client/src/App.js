@@ -63,6 +63,9 @@ class App extends Component {
       <div id="app" className="App">        
         <BrowserRouter>
           <Switch>
+            <Route path="/login" onEnter={() => {
+                window.location.href="http://localhost:3001/login"
+            }} />
            { /*The home route */}
             <Route exact path="/home" render ={ () => {
               return(

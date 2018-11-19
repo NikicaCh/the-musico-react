@@ -101,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch('http://localhost:3001');
+        const response = await fetch('http://localhost:3001/');
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post("http://localhost:3001", {
+        Axios.post("http://localhost:3001/", {
                     data: {
                         url,
                         track
@@ -433,7 +433,7 @@ class Player extends Component {
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
             let port = Port();
-            window.location.replace(`http://localhost:${port}/login`)
+            window.location.replace(`/login`)
             }
         );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
