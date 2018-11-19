@@ -16,6 +16,8 @@ import Player from './components/Player';
 import Navbar from './components/navbar';
 import AboutPage from './components/AboutPage';
 import CookiePolicy from './components/cookiePolicy'
+import Login from './components/Login'
+import Callback from './components/Callback'
 
 
 

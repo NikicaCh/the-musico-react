@@ -25,7 +25,6 @@ const port = process.env.PORT || 3001;
 let redirect_uri = 
   process.env.REDIRECT_URI || 
   'http://localhost:3001/callback'
-let code = ""
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -91,7 +90,7 @@ res.redirect('https://accounts.spotify.com/authorize?' +
     }))
 })
 app.get('/callback', function(req, res) {
-    code = req.query.code || null
+    let code = req.query.code || null
     let authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {

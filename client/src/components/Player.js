@@ -21,7 +21,6 @@ import cheerio from 'cheerio'
 import Axios from "../../node_modules/axios"
 // import { stringify } from "querystring"
 import $ from 'jquery'
-import computerName from 'computer-name'
 import {MDCSlider} from '@material/slider'
 
 
@@ -400,7 +399,6 @@ class Player extends Component {
         //     });
         // })
             
-        let computer = computerName();
         getUser(access)
         .then((data) => {
             if(data) {
