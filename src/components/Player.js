@@ -432,7 +432,7 @@ class Player extends Component {
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
         player.addListener('authentication_error', ({ message }) => {
-            window.location.replace("/login")
+            window.location.replace("https://musico-redirect.herokuapp.com/login")
             }
         );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });

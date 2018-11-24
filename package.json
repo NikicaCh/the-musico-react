@@ -1,22 +1,50 @@
 {
-  "name": "the-musico",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "engines": {
-    "node": "8.11.3"
+  "name": "capstone",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001",
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.46",
+    "@material-ui/core": "^1.5.1",
+    "@material/slider": "^0.41.0",
+    "@types/spotify-web-playback-sdk": "^0.1.2",
+    "axios": "^0.18.0",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.0.0",
+    "cheerio": "^1.0.0-rc.2",
+    "jquery": "^3.3.1",
+    "jsonp": "^0.2.1",
+    "material-ui": "^0.20.0",
+    "path": "^0.12.7",
+    "query-string": "^5.1.0",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-cookie": "^3.0.4",
+    "react-dom": "^16.2.0",
+    "react-rangeslider": "^2.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.1",
+    "react-spinners": "^0.3.2",
+    "react-spring": "^5.1.1",
+    "request": "^2.87.0",
+    "scrape-it": "^5.0.5",
+    "string-similarity": "^1.2.0",
+    "universal-cookie": "^3.0.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "(cd client && npm i) && (cd server && npm i)",
-    "start": "concurrently \"cd client && SET PORT=3000 && npm start\" \"cd server && SET PORT=3001 && npm start\"",
-    "build": "concurrently \"cd client && npm run build\" \"cd server && npm run build\"",
-    "start:prod": "cd server && npm run start:prod",
-    "heroku-postbuild": "npm run build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "concurrently": "^4.0.1"
+  "devDependencies": {
+    "@types/material-ui": "^0.21.5",
+    "@types/react-dom": "^16.0.7",
+    "@types/string-similarity": "^1.2.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "jshint": "^2.9.6"
   }
 }

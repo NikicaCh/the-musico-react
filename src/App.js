@@ -6,7 +6,6 @@ import Cookies from 'universal-cookie';
 import Axios from 'axios';
 import $ from 'jquery';
 import './App.css';
-
 import queryString from 'query-string';
 
 import Search from './components/Search';
@@ -48,11 +47,18 @@ class App extends Component {
   
   componentDidMount() {
     document.title = "Musico";
+    let parsed = queryString.parse(document.location.search)
+    if(parsed.spotify) {
+      const cookies = new Cookies();
+      cookies.set("access", parsed.spotify)
+      cookies.set("genius", parsed.genius)
+      window.location.replace("/")
+    }
     let access_token = accessToken()
     this.setState({token: access_token})
     this.timer = setInterval(() =>  {
-      window.location.replace("http://localhost:3001/login")   
-    }, 3540000);
+      window.location.replace("https://musico-redirect.herokuapp.com/login")   
+    }, 3500000);
   }
   componentWillUnmount() {
     const cookies = new Cookies();
