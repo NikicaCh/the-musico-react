@@ -47,12 +47,21 @@ class App extends Component {
   
   componentDidMount() {
     document.title = "Musico";
+    let date = new Date();
+    Date.prototype.addHours= function(h){
+      this.setHours(this.getHours()+h);
+      return this;
+    } //to add one hour on access_date cookie
+    const cookies = new Cookies();
+
     let parsed = queryString.parse(document.location.search)
     if(parsed.spotify) {
-      const cookies = new Cookies();
       cookies.set("access", parsed.spotify)
       cookies.set("genius", parsed.genius)
+      cookies.set("access_time", date)
       window.location.replace("/")
+    } else if(cookies.get("access_time") && cookies.get("access_time").addHours(1) < new Date()) {
+      window.location.replace("https://musico-redirect.herokuapp.com/login")   
     }
     let access_token = accessToken()
     this.setState({token: access_token})
