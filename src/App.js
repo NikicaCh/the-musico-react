@@ -60,7 +60,7 @@ class App extends Component {
       cookies.set("genius", parsed.genius)
       cookies.set("access_time", date)
       window.location.replace("/")
-    } else if(cookies.get("access_time") && cookies.get("access_time").addHours(1) < new Date()) {
+    } else {
       window.location.replace("https://musico-redirect.herokuapp.com/login")   
     }
     let access_token = accessToken()
