@@ -101,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch('http://localhost:3001/');
+        const response = await fetch(linkBackendInProduction);
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post("http://localhost:3001/", {
+        Axios.post("linkBackendInProduction", {
                     data: {
                         url,
                         track
@@ -366,7 +366,8 @@ class Player extends Component {
         }
     }
     componentDidMount() {
-        console.log("ENV", process.env)
+        const linkBackendInDevelopment = "http://localhost:8888/";
+        const linkBackendInProduction = "https://musico-redirect.herokuapp.com/";
         document.onkeydown = this.handleKeyPress; //handle keypress
         let lastScrollTop = window.scrollTop;
         this.setState({loading: true})
