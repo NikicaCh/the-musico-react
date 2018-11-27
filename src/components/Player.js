@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import '../App.css'
-import {getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch'
+import {Port, getDevices, accessToken, getCurrentPlayback, Pause, Play, NextTrack, Shuffle, SeekPosition, Lyrics, TransferPlayback, PreviousTrack, Volume, getUser, getGeniusKey} from './Fetch'
 import CookiePopUp from './cookiePopUp'
 import Cookies from 'universal-cookie'
 // import ReactDOM from 'react-dom';
@@ -101,7 +101,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch('http://localhost:3001');
+        const response = await fetch('http://localhost:3001/');
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post("http://localhost:3001", {
+        Axios.post("http://localhost:3001/", {
                     data: {
                         url,
                         track
@@ -366,6 +366,7 @@ class Player extends Component {
         }
     }
     componentDidMount() {
+        console.log("ENV", process.env)
         document.onkeydown = this.handleKeyPress; //handle keypress
         let lastScrollTop = window.scrollTop;
         this.setState({loading: true})
@@ -430,7 +431,10 @@ class Player extends Component {
             });
 
         player.addListener('initialization_error', ({ message }) => { console.error(message); });
-        player.addListener('authentication_error', ({ message }) => { window.location.replace("http://localhost:3001/login") });
+        player.addListener('authentication_error', ({ message }) => {
+            window.location.replace("https://musico-redirect.herokuapp.com/login")
+            }
+        );
         player.addListener('account_error', ({ message }) => { console.error("MESSAGE",message); });
         player.addListener('playback_error', ({ message }) => { console.error(message); }); 
             

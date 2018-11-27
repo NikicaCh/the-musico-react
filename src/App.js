@@ -6,7 +6,6 @@ import Cookies from 'universal-cookie';
 import Axios from 'axios';
 import $ from 'jquery';
 import './App.css';
-
 import queryString from 'query-string';
 
 import Search from './components/Search';
@@ -50,11 +49,29 @@ class App extends Component {
   
   componentDidMount() {
     document.title = "Musico";
+    const linkToRedirectInDevelopment = "http://localhost:8888/login";
+    const linkToRedirectInProduction = "https://musico-redirect/login";
+    let date = new Date();
+    Date.prototype.addHours= function(h){
+      this.setHours(this.getHours()+h);
+      return this;
+    } //to add one hour on access_date cookie
+    const cookies = new Cookies();
+
+    let parsed = queryString.parse(document.location.search)
+    if(parsed.spotify) {
+      cookies.set("access", parsed.spotify)
+      cookies.set("genius", parsed.genius)
+      cookies.set("access_time", date.toString())
+      window.location.replace("/")
+    } else if(!cookies.get("access_time") || cookies.get("access_time").toString() < new Date().toString()) {
+      window.location.replace(linkToRedirectInProduction)   
+    }
     let access_token = accessToken()
     this.setState({token: access_token})
     this.timer = setInterval(() =>  {
-      window.location.replace("http://localhost:3001/login")   
-    }, 3540000);
+      window.location.replace(linkToRedirectInProduction)   
+    }, 3500000);
   }
   componentWillUnmount() {
     const cookies = new Cookies();
