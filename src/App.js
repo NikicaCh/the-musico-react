@@ -47,6 +47,8 @@ class App extends Component {
   
   componentDidMount() {
     document.title = "Musico";
+    const linkToRedirectInDevelopment = "http://localhost:8888/login";
+    const linkToRedirectInProduction = "https://musico-redirect/login";
     let date = new Date();
     Date.prototype.addHours= function(h){
       this.setHours(this.getHours()+h);
@@ -58,15 +60,15 @@ class App extends Component {
     if(parsed.spotify) {
       cookies.set("access", parsed.spotify)
       cookies.set("genius", parsed.genius)
-      cookies.set("access_time", date)
+      cookies.set("access_time", date.toString())
       window.location.replace("/")
-    } else if(!cookies.get("access_time") || cookies.get("access_time").addHours(1) < new Date()) {
-      window.location.replace("https://musico-redirect.herokuapp.com/login")   
+    } else if(!cookies.get("access_time") || cookies.get("access_time").toString() < new Date().toString()) {
+      window.location.replace(linkToRedirectInProduction)   
     }
     let access_token = accessToken()
     this.setState({token: access_token})
     this.timer = setInterval(() =>  {
-      window.location.replace("https://musico-redirect.herokuapp.com/login")   
+      window.location.replace(linkToRedirectInProduction)   
     }, 3500000);
   }
   componentWillUnmount() {
@@ -78,9 +80,6 @@ class App extends Component {
       <div id="app" className="App">        
         <BrowserRouter>
           <Switch>
-            <Route path="/login" render={() => {
-              window.location.href="http://localhost:3001/login"
-            }} />
            { /*The home route */}
             <Route exact path="/home" render ={ () => {
               return(
