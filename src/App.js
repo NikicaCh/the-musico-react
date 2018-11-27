@@ -48,7 +48,7 @@ class App extends Component {
   componentDidMount() {
     document.title = "Musico";
     const linkToRedirectInDevelopment = "http://localhost:8888/login";
-    const linkToRedirectInProduction = "https://musico-redirect/login";
+    const linkToRedirectInProduction = "https://musico-redirect.herokuapp.com/login";
     let date = new Date();
     Date.prototype.addHours= function(h){
       this.setHours(this.getHours()+h);
