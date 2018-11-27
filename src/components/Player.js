@@ -22,6 +22,8 @@ import Axios from "../../node_modules/axios"
 // import { stringify } from "querystring"
 import $ from 'jquery'
 import {MDCSlider} from '@material/slider'
+const linkBackendInDevelopment = "http://localhost:8888/";
+const linkBackendInProduction = "https://musico-redirect.herokuapp.com/";
 
 
 class Player extends Component {
@@ -166,7 +168,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post("linkBackendInProduction", {
+        Axios.post(linkBackendInProduction, {
                     data: {
                         url,
                         track
@@ -366,8 +368,6 @@ class Player extends Component {
         }
     }
     componentDidMount() {
-        const linkBackendInDevelopment = "http://localhost:8888/";
-        const linkBackendInProduction = "https://musico-redirect.herokuapp.com/";
         document.onkeydown = this.handleKeyPress; //handle keypress
         let lastScrollTop = window.scrollTop;
         this.setState({loading: true})
