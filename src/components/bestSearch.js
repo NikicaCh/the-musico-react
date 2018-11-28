@@ -3,6 +3,8 @@ import {Featuring, accessToken, PlayTrack, getDevices} from './Fetch'
 import $ from 'jquery'
 import Cookies from 'universal-cookie'
 
+import RestTracks from './restTracks'
+
 class BestSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -126,26 +128,14 @@ class BestSearch extends React.Component {
                             }
                                 </div>
                             </div> 
-                            <div className="container w-100 other-results">
-                                <div className="row other-results-title"><h2>Other results</h2></div>
-                                <div className="container row bg-danger w-50">
-                                    <div className="rest-track">
-                                        <span> Queen Killer</span>
-                                        <span> Queen</span>
-                                        <span> Another one bites the dust Another one bites the dust</span>
-                                        <span> Queen</span>
-                                        <span> Don't stop me now</span>
-                                        <span> Queen</span>
-                                        <span> Queen Killer</span>
-                                        <span> Queen</span>
-                                        <span> Queen Killer</span>
-                                        <span> Queen</span>
-                                    </div>
-                                <div className="row bg-info"></div>
-                                    {/* <div className="bg-danger column-md-6">HELLO</div> */}
-
+                            <div className="other-results-container">
+                                <div className="row">
+                                    <span>Songs</span>
+                                    <span>Artists</span>
+                                    <span>Albums</span>
                                 </div>
                             </div>
+                            <RestTracks tracks={this.props.restTracks}/>
                     </div>                       
                 :<div></div>
             }

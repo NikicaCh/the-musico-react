@@ -133,15 +133,15 @@ class Search extends Component {
         let cookies = new Cookies();
         let userId = this.props.userId
         let mostRecent1 = cookies.get(`mostRecent1${userId}`)
-        if(mostRecent1 == "undefined") {
+        if(!mostRecent1 || mostRecent1 == "undefined") {
             mostRecent1 = "imagine dragons"
         }
         let mostRecent2 = cookies.get(`mostRecent2${userId}`)
-        if(mostRecent2 == "undefined") {
+        if(!mostRecent2 || mostRecent2 == "undefined") {
             mostRecent2 = "Drake"
         }
         let lastTrack = cookies.get(`lastTrack${userId}`)
-        if(lastTrack == "undefined") {
+        if(!lastTrack || lastTrack == "undefined") {
             lastTrack = "shallow"
         }
         let type;

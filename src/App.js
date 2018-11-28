@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter, Switch, Redirect, Router} from 'react-router-dom';
 import {browserHistory} from "react-router";
-import {accessToken} from './components/Fetch';
+import {accessToken, getDevices} from './components/Fetch';
 import Cookies from 'universal-cookie';
 import Axios from 'axios';
 import $ from 'jquery';
@@ -49,6 +49,8 @@ class App extends Component {
     document.title = "Musico";
     const linkToRedirectInDevelopment = "http://localhost:8888/login";
     const linkToRedirectInProduction = "https://musico-redirect.herokuapp.com/login";
+    let token = accessToken();
+    getDevices(token)
     let date = new Date();
     Date.prototype.addHours= function(h){
       this.setHours(this.getHours()+h);
@@ -69,7 +71,7 @@ class App extends Component {
     this.setState({token: access_token})
     this.timer = setInterval(() =>  {
       window.location.replace(linkToRedirectInProduction)   
-    }, 3500000);
+    }, 2500000);
   }
   componentWillUnmount() {
     const cookies = new Cookies();

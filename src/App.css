@@ -880,31 +880,45 @@ button:focus {outline:0;}
   text-align: center;
   margin-top: 3%;
 }
+.other-results-container {
+  position: relative;
+  margin: auto;
+  margin-top: 10%;
+  width: 50%;
+}
+.other-results-container span {
+  color: white;
+  margin-right: 2%;
+  margin: auto;
+  font-family: 'Anton', sans-serif;
+  color: rgb(212, 212, 212);
+  text-transform: uppercase;
+  font-size: .8vw;
+  cursor: pointer;
+}
 
-.other-results {
+.rest-tracks {
+  background: #5F9EA0;
+  width: 80%;
+  margin: auto;
   margin-top: 10%;
 }
+.rest-tracks div:hover {
+  background: #4169E1;
+}
+.rest-tracks div h1 {
+  color: white;
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.2vw;
+  text-transform: lowercase;
+}
+
 
 .other-results-title {
   font-family: 'Anton', sans-serif;
   color: rgb(212, 212, 212);
   text-transform: uppercase;
   font-size: 1.1vw;
-}
-
-.rest-track {
-  background: rgb(0, 120, 124);
-}
-.rest-track span {
-  display: table;
-  color: rgb(104, 104, 104);
-  font-family: 'Amatic SC', cursive;
-  font-size: 1vw;
-}
-.rest-track span:nth-child(odd){
-  font-size: 1.5vw;
-  display: inline;
-  word-wrap: none; 
 }
 
 .search-top {

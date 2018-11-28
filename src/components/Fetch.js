@@ -4,6 +4,9 @@ import stringSimilarity  from 'string-similarity';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 
+const linkToRedirectInDevelopment = "http://localhost:8888/login";
+const linkToRedirectInProduction = "https://musico-redirect.herokuapp.com/login";
+
 export const Port = async () => {
     const response = await fetch('/port')
     const port = await response.json()
@@ -51,7 +54,11 @@ export const getDevices = (token) => {
                 'Content-Type': 'application/json' ,
                 'Authorization': 'Bearer ' + token },
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            if(err.response.status === 401) {
+                window.location.replace(linkToRedirectInProduction)
+            }
+        });
         return promise;
 }
 export const getCurrentPlayback = (token) => {
