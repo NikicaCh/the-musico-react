@@ -104,14 +104,15 @@ class Search extends Component {
         $(".search-title").addClass("title-searched")
         $(".pills-row").addClass("pills-searched")
         $(".results").attr("class", "results")
-        this.setState({searchValue: value}, () => {
-            this.search(token, value);
-        }) 
+        if(!$("#search").hasClass("hide")) {
+            this.setState({searchValue: value}, () => {
+                this.search(token, value);
+            }) 
+        }
         $("body").on("click", ".pill-close", (e) => {
             e.target.parentNode.remove()
         })
         $(".pill").on("click", (e) => {
-            console.log(e.target.id)
             if(e.target.id === "pill1" || e.target.id === "pill2" || e.target.id === "pill3") { //if you click pill 1, 2 or 3
                 this.setState({searchValue: value}, () => {
                     let value = e.target.innerText;
@@ -132,16 +133,15 @@ class Search extends Component {
         let cookies = new Cookies();
         let userId = this.props.userId
         let mostRecent1 = cookies.get(`mostRecent1${userId}`)
-        if(mostRecent1 == undefined) {
+        if(mostRecent1 == "undefined") {
             mostRecent1 = "imagine dragons"
         }
         let mostRecent2 = cookies.get(`mostRecent2${userId}`)
-        if(mostRecent2 == undefined) {
+        if(mostRecent2 == "undefined") {
             mostRecent2 = "Drake"
         }
         let lastTrack = cookies.get(`lastTrack${userId}`)
-        console.log(lastTrack)
-        if(lastTrack === undefined) {
+        if(lastTrack == "undefined") {
             lastTrack = "shallow"
         }
         let type;

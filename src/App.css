@@ -743,7 +743,7 @@ button:focus {outline:0;}
 .pills-row {
   position: relative;
   top: 58%;
-  width: 30%;
+  width: 35%;
   margin: 0 auto;
   color: white;
 }
@@ -890,11 +890,10 @@ button:focus {outline:0;}
   color: rgb(212, 212, 212);
   text-transform: uppercase;
   font-size: 1.1vw;
-  background: #aa9f07;
 }
 
 .rest-track {
-  background: #5F9EA0;
+  background: rgb(0, 120, 124);
 }
 .rest-track span {
   display: table;

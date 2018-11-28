@@ -50,7 +50,18 @@ class BestSearch extends React.Component {
         
     }
     componentWillReceiveProps(nextProps) {
-        console.log("TRACKS", this.props.restTracks, "ARTISTS", this.props.restArtists)
+        if(this.props.restTracks.length) {
+            let tracks = this.props.restTracks;
+            let sortedTracks =  tracks.sort(function(a, b){
+                let keyA = a.popularity,
+                    keyB = b.popularity;
+                // Compare the 2 dates
+                if(keyA < keyB) return 1;
+                if(keyA > keyB) return -1;
+                return 0;
+            });
+            console.log(sortedTracks)
+        }
         let token = accessToken();
         this.setState({searched: nextProps.search, type: nextProps.type, name: nextProps.max})
         if(nextProps.type == "artist") {
@@ -78,8 +89,6 @@ class BestSearch extends React.Component {
                     this.setState({featuring: array})
                 }
             })
-        } else {
-            console.log(this.props.trackId)
         }
       }
     

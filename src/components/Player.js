@@ -103,7 +103,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch(linkBackendInProduction);
+        const response = await fetch(linkBackendInDevelopment);
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -131,11 +131,9 @@ class Player extends Component {
                    this.setState({numberofParagraphs})
                 })
                 this.setState({currentLyrics: finished[0], lyricsPosition: 0,  fullLyrics: finished}, () => {
-                    console.log("4 TRY SUCCEDED")
                 })
             } else {
                 setTimeout(() => {
-                    console.log("4 TRY FAILED");
                     this.receiveLyrics();
                 }, 50)
                 
@@ -168,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post(linkBackendInProduction, {
+        Axios.post(linkBackendInDevelopment, {
                     data: {
                         url,
                         track
@@ -178,7 +176,6 @@ class Player extends Component {
                 }).catch((err) => {
                     console.log(err);
                 })
-                console.log("3", track)                
     }
     getLyrics(track, artist, token) {
         //LYRICS ------------------------------------------------------------------------------------
@@ -192,7 +189,6 @@ class Player extends Component {
                 hitsName.push(hit.result.full_title);
             })
             if(hitsName.length) { // if the genius api responds with a result
-                console.log("2")
                 if($("#lyrics-main").hasClass("hide")) {
                     $("#lyrics-main").toggleClass("hide")
                 }
@@ -210,19 +206,16 @@ class Player extends Component {
                 if(!$("#lyrics-main").hasClass("hide")) {
                     $("#lyrics-main").toggleClass("hide")
                 }
-                console.log("2 Genius api responded with no lyrics, try to find lyrics in the database... to be constructed yet")
             }    
         })
     }
     setCurrentTrack(access) {
-        console.log("1")
         let track = '';
         let songArtist;
         let genius = getGeniusKey();
         getCurrentPlayback(access) // get info about the current spotify playback
         .then(data => {
             if(data) {
-                console.log(data)
                 let playing = data.data.is_playing;
                 let context = "";
                 if(data.data.context) {
@@ -267,7 +260,6 @@ class Player extends Component {
                         document.title = this.state.currentPlaybackName;
                     }
                 } else {
-                    console.log("NO DATA")
                 }
             }
             let display = '';
@@ -306,10 +298,8 @@ class Player extends Component {
         }
     }
     handleKeyPress(e) {
-        console.log(e.keyCode)
         if($("#search").length) { //if the search modal is not active
             let event = e;
-            console.log(event.keyCode)
             let code = event.keyCode;
             let token = accessToken();
                 if(code === 37 && $("#search").hasClass("hide") && this.state.context !== "") { // left arrow
@@ -355,7 +345,6 @@ class Player extends Component {
             progress = ((event.clientX-event.target.offsetLeft) / event.target.offsetWidth * 100);
             document.getElementById("seekbar").style.width = `${progress}%`
             let seekVal = Math.ceil((this.state.max * progress) / 100);
-            console.log(seekVal)
             SeekPosition(token, seekVal)
         } else {
             let width = event.target.style.width;
@@ -364,7 +353,6 @@ class Player extends Component {
             let childX = event.pageX - parent.offsetLeft;
             progress = widthNum*childX
             let seekVal = Math.ceil((this.state.max * progress) / 100)
-            console.log(progress)
         }
     }
     componentDidMount() {
@@ -404,10 +392,8 @@ class Player extends Component {
         getUser(access)
         .then((data) => {
             if(data) {
-                console.log(data.data.progres_ms)
                 this.setState({userEmail: data.data.email, userId: data.data.id}, () => {
                     let cookies = new Cookies();
-                    console.log("HERE IT IS", cookies.get(`${this.state.userId}cookie`))
                     if(cookies.get(`${this.state.userId}cookie`) == 1) {
                         this.setState({cookieUsed: true})
                     } else {
@@ -441,7 +427,6 @@ class Player extends Component {
             
         // Ready
         player.addListener('ready', ({ device_id }) => {
-            console.log('Ready with Device ID', device_id);
             loading = false;
             this.setState({loading: false})
             this.setCurrentTrack(access); // SET CURRENT TRACK --------------------------------------------------
@@ -464,7 +449,6 @@ class Player extends Component {
 
         // Playback status updates
         player.addListener('player_state_changed', state => { 
-            console.log("STATE CHANGED")
             // if(state.paused) {
             //     this.setState({playing: false})
             // } else {

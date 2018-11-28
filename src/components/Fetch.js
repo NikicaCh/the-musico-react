@@ -174,7 +174,7 @@ export const getUser = (token) => {
 }
 
 export const ReportLyrics = (trackId, userId, userEmail) => {
-    Axios.post('http://localhost:3001/reportLyrics', {
+    Axios.post('http://localhost:8888/reportLyrics', {
         data: {
             trackId: {trackId},
             userId: {userId},
