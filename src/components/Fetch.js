@@ -55,7 +55,7 @@ export const getDevices = (token) => {
                 'Authorization': 'Bearer ' + token },
         })
         .catch(err => {
-            if(err.response.status === 401) {
+            if(err) {
                 window.location.replace(linkToRedirectInProduction)
             }
         });
