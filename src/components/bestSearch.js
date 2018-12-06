@@ -70,12 +70,12 @@ class BestSearch extends React.Component {
             Featuring(this.props.artistId, token )
             .then((data) => {
                 if(data) {
-                    let array = data.data.tracks.slice(0, 12).map((track) => {
+                    let array = data.data.tracks.slice(0, 10).map((track) => {
                         let name = track.name
                         if(track.name.length > 20) {
                             name = track.name.substring(0, 20) +"...";
                         }
-                        return  <div className="col-md-2">
+                        return  <div className="col-md-2 mt-2 mb-2">
                                     <div className="row w-100 ml-5 d-flex justify-content-center">
                                         <img
                                             src={track.album.images[0].url}
@@ -135,7 +135,7 @@ class BestSearch extends React.Component {
                                     <span>Albums</span>
                                 </div>
                             </div>
-                            <RestTracks tracks={this.props.restTracks}/>
+                            <RestTracks tracks={this.props.restTracks} device={this.props.deviceId}/>
                     </div>                       
                 :<div></div>
             }

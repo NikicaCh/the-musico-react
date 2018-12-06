@@ -865,20 +865,25 @@ button:focus {outline:0;}
 
 .featuring-img {
   border-radius: 50%;
-  width: 3.5vw;
-  height: 3.5vw;
+  width: 2.5vw;
+  height: 2.5vw;
+}
+.featuring-img::selection{
+  background: transparent;
 }
 
 
 .featuring-title {
-  left: 120%;
   font-family: 'Amatic SC', cursive;
   color: rgb(206, 204, 204);
-  font-size: 1.2vw;
+  font-size: 1vw;
   margin-left: 3%;  
   word-wrap: break-word;
   text-align: center;
   margin-top: 3%;
+}
+.featuring-title::selection {
+  background: transparent;
 }
 .other-results-container {
   position: relative;
@@ -898,19 +903,39 @@ button:focus {outline:0;}
 }
 
 .rest-tracks {
-  background: #5F9EA0;
-  width: 80%;
+  width: 100%;
   margin: auto;
   margin-top: 10%;
 }
 .rest-tracks div:hover {
-  background: #4169E1;
+  background: rgb(108, 108, 109);
 }
 .rest-tracks div h1 {
   color: white;
   font-family: 'Amatic SC', cursive;
   font-size: 1.2vw;
   text-transform: lowercase;
+  width: 70%;
+  margin-right: 20%;
+  display: inline-block;
+}
+.rest-tracks div h1 h2 {
+  color: #e3e64b;
+  font-family: 'Amatic SC', cursive;
+  font-size: 0.9vw;
+  text-transform: lowercase;
+  margin: .3%;
+  margin-right: 40%;
+  display: inline-block;
+}
+
+.rest-tracks span {
+  position: relative;
+  color: white;
+  font-family: 'Amatic SC', cursive;
+  font-size: 1vw;
+  text-transform: lowercase;
+  display: inline-block;
 }
 
 
