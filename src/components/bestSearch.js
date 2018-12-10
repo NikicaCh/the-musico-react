@@ -4,6 +4,8 @@ import $ from 'jquery'
 import Cookies from 'universal-cookie'
 
 import RestTracks from './restTracks'
+import RestArtists from './restArtists'
+import RestAlbums from './restAlbums'
 
 class BestSearch extends React.Component {
     constructor(props) {
@@ -13,10 +15,14 @@ class BestSearch extends React.Component {
             deviceId: "",
             searched: "",
             type: "",
-            name: ""
+            name: "",
+            restCondition: "artists"
         }
+        this.changeCondition = this.changeCondition.bind(this)
     }
-
+    changeCondition(e) {
+        this.setState({restCondition: "tracks"})
+    }
 
     componentDidMount() {
         let token = accessToken();
@@ -75,7 +81,7 @@ class BestSearch extends React.Component {
                         if(track.name.length > 20) {
                             name = track.name.substring(0, 20) +"...";
                         }
-                        return  <div className="col-md-2 mt-2 mb-2">
+                        return  <div className="col-md-2 col-sm-6 mt-2 mb-2">
                                     <div className="row w-100 ml-5 d-flex justify-content-center">
                                         <img
                                             src={track.album.images[0].url}
@@ -97,6 +103,7 @@ class BestSearch extends React.Component {
     render() {
         let render = this.props.image;
         let featuring = false;
+        let condition = this.state.restCondition;
         if(this.props.type == "artist") {
             featuring = true;
             let token = accessToken();
@@ -111,7 +118,7 @@ class BestSearch extends React.Component {
                 ? <div className="container w-100 search-top">
                             <div className="row other-results-title"><h2>Top result</h2></div>
                             <div className="row w-100">
-                                <div className="col-md-3 mt-5 relative"> 
+                                <div className="col-md-3 col-xs-6 mt-5 relative"> 
                                     <img id={this.props.trackId} src={this.props.image} className={`best-search-img ${this.props.type}-img`}></img>
                                     {/* <img className="play-hover" src={require("../icons/play-hover.png")}></img> */}
                                     <figcaption><span className="best-search-title">{this.props.name}</span></figcaption>    
@@ -130,12 +137,32 @@ class BestSearch extends React.Component {
                             </div> 
                             <div className="other-results-container">
                                 <div className="row">
-                                    <span>Songs</span>
-                                    <span>Artists</span>
-                                    <span>Albums</span>
+                                    <span
+                                        className="condition"
+                                        onClick={this.changeCondition}>tracks</span>
+                                    <span
+                                        className="condition"
+                                        onClick={this.changeCondition}>artists</span>
+                                    <span
+                                        className="condition"
+                                        onClick={this.changeCondition}>albums</span>
                                 </div>
                             </div>
-                            <RestTracks tracks={this.props.restTracks} device={this.props.deviceId}/>
+                            {
+                                (condition === "tracks")
+                                ? <RestTracks tracks={this.props.restTracks} device={this.props.deviceId}/>
+                                : <div></div>
+                            }
+                            {
+                                ( condition === "artists")
+                                ? <RestArtists artists={this.props.restArtists} device={this.props.deviceId}/>
+                                : <div></div>
+                            }
+                            {
+                                ( condition === "albums")
+                                ? <RestAlbums device={this.props.deviceId}/>
+                                : <div></div>
+                            }
                     </div>                       
                 :<div></div>
             }

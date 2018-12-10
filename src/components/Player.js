@@ -103,7 +103,7 @@ class Player extends Component {
         Shuffle(token);
     }
     async receiveLyrics() {
-        const response = await fetch(linkBackendInProduction);
+        const response = await fetch(linkBackendInDevelopment);
         const body = await response.json();
     
         if (response.status !== 200) throw Error(body.message);
@@ -166,7 +166,7 @@ class Player extends Component {
           .trim();
       }
     sendToBackEnd(url, track) {
-        Axios.post(linkBackendInProduction, {
+        Axios.post(linkBackendInDevelopment, {
                     data: {
                         url,
                         track

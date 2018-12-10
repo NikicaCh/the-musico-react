@@ -19,7 +19,7 @@ class RestTracks extends React.Component {
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps() {
         let tracks = this.props.tracks.map((track) => {
             let artists = track.artists.map((artist) => artist.name).join(",")
             return(

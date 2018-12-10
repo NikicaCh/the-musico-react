@@ -938,6 +938,31 @@ button:focus {outline:0;}
   display: inline-block;
 }
 
+.rest-artists {
+  width: 100%;
+  margin: auto;
+  margin-top: 10%;
+}
+
+.rest-artist-div  img{
+  width: 15vw;
+  height: 15vw;
+  border-radius: 5%;
+  cursor: pointer;
+}
+.rest-artist-div h1 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.3vw;
+  text-transform: lowercase;
+  display: inline-block;
+  color: #c7dfdf;
+  word-wrap: break-word;
+  position: relative;
+}
+.rest-artist-div .row {
+  text-align: center;
+  margin: 5% 10% 0 0;
+}
 
 .other-results-title {
   font-family: 'Anton', sans-serif;
