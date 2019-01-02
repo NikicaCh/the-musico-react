@@ -454,6 +454,7 @@ class Player extends Component {
             // } else {
             //     this.setState({playing: true})
             // }
+            console.log("state change", state)
             this.setCurrentTrack(access); // SET CURRENT TRACK -------------------------------------------------
             this.setCurrentTrack(access); // I must call this func twice, because when I try to play the same song again the API returns is_playing:false
             let url;
@@ -564,6 +565,22 @@ class Player extends Component {
                         <span className="pause-help">Press "Space" to resume</span>
                     </div>
                 }
+                <div onMouseLeave={() => {
+                        $(".devices_modal").addClass("hide")
+                    }}>
+                    <div className="device-container" className="devices-icon"
+                        onMouseEnter={() => {
+                            let token = accessToken();
+                            getDevices(token)
+                            .then((response) => console.log("DEVICES",response.data.devices))
+                            $(".devices_modal").removeClass("hide")
+                        }}
+                        ></div>
+                    <div className="devices_modal hide">
+                        <h3>Computer</h3>
+                        <h3>Mobile</h3>
+                    </div>
+                </div>
             </div>
         )
     }

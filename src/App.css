@@ -1545,3 +1545,44 @@ input[type=range]:focus::-ms-fill-upper {
   z-index: 20;
   transition: width ease-in-out;
 }
+
+
+.devices-icon {
+  position: absolute;
+  width: 2vw;
+  height: 2vw;
+  top: 90%;
+  right: 6%;
+  cursor: pointer;
+  z-index: 1000;
+  content: url("./icons/devices_black.png")
+}
+
+.devices-icon:hover {
+  content: url("./icons/devices_gray.png");
+  transition: all 0.2s ease-in-out;
+}
+
+.devices_modal {
+  position: absolute;
+  top: 64%;
+  right: 3%;
+  width: 8vw;
+  height: 12vw;
+  background: #c5c5c5;
+  z-index: 1000;
+  box-shadow: -2px -2px 3px rgb(0, 0, 0);
+}
+
+.devices_modal::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 20px 0 20px;
+  border-color: #363636 transparent #363636 transparent;
+}

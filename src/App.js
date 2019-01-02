@@ -57,14 +57,14 @@ class App extends Component {
       return this;
     } //to add one hour on access_date cookie
     const cookies = new Cookies();
-
+    console.log("EVE GA VRATI SE KRALJ", cookies.get("access_time"))
     let parsed = queryString.parse(document.location.search)
     if(parsed.spotify) {
       cookies.set("access", parsed.spotify)
       cookies.set("genius", parsed.genius)
       cookies.set("access_time", date.toString())
       window.location.replace("/")
-    } else if(cookies.get("access_time") == null || cookies.get("access_time").toString() < new Date().toString()) {
+    } else if( typeof cookies.get("access_time") === "undefined" || cookies.get("access_time").toString() < new Date().toString()) {
       window.location.replace(linkToRedirectInDevelopment)   
     }
     let access_token = accessToken()

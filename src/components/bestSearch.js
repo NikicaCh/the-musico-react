@@ -18,12 +18,7 @@ class BestSearch extends React.Component {
             name: "",
             restCondition: "artists"
         }
-        this.changeCondition = this.changeCondition.bind(this)
     }
-    changeCondition(e) {
-        this.setState({restCondition: "tracks"})
-    }
-
     componentDidMount() {
         let token = accessToken();
         let userId = this.props.userId;
@@ -139,29 +134,26 @@ class BestSearch extends React.Component {
                                 <div className="row">
                                     <span
                                         className="condition"
-                                        onClick={this.changeCondition}>tracks</span>
+                                        onClick={() => {
+                                            $(".resttracks").removeClass("hide")
+                                            $(".restartists").addClass("hide")
+                                        }}>tracks</span>
                                     <span
                                         className="condition"
-                                        onClick={this.changeCondition}>artists</span>
-                                    <span
-                                        className="condition"
-                                        onClick={this.changeCondition}>albums</span>
+                                        onClick={() => {
+                                            $(".restartists").removeClass("hide")
+                                            $(".resttracks").addClass("hide")
+                                        }}>artists</span>
+                                        <span
+                                        className="condition">albums</span>
                                 </div>
                             </div>
-                            {
-                                (condition === "tracks")
-                                ? <RestTracks tracks={this.props.restTracks} device={this.props.deviceId}/>
-                                : <div></div>
-                            }
-                            {
-                                ( condition === "artists")
-                                ? <RestArtists artists={this.props.restArtists} device={this.props.deviceId}/>
-                                : <div></div>
-                            }
-                            {
-                                ( condition === "albums")
-                                ? <RestAlbums device={this.props.deviceId}/>
-                                : <div></div>
+                            <div className="resttracks">
+                                <RestTracks tracks={this.props.restTracks} device={this.props.deviceId}/>
+                            </div>
+                            <div className="restartists hide">
+                                <RestArtists artists={this.props.restArtists} device={this.props.deviceId}/>
+                            </div>
                             }
                     </div>                       
                 :<div></div>
