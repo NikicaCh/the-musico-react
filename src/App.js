@@ -65,12 +65,12 @@ class App extends Component {
       cookies.set("access_time", date.toString())
       window.location.replace("/")
     } else if( typeof cookies.get("access_time") === "undefined" || cookies.get("access_time").toString() < new Date().toString()) {
-      window.location.replace(linkToRedirectInDevelopment)   
+      window.location.replace(linkToRedirectInProduction)   
     }
     let access_token = accessToken()
     this.setState({token: access_token})
     this.timer = setInterval(() =>  {
-      window.location.replace(linkToRedirectInDevelopment)   
+      window.location.replace(linkToRedirectInProduction)   
     }, 2500000);
   }
   componentWillUnmount() {
