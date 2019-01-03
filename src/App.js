@@ -64,7 +64,7 @@ class App extends Component {
       cookies.set("genius", parsed.genius)
       cookies.set("access_time", date.toString())
       window.location.replace("/")
-    } else if( typeof cookies.get("access_time") === "undefined" || cookies.get("access_time").toString() < new Date().toString()) {
+    } else if( typeof cookies.get("access_time") === "undefined" || new Date(cookies.get("access_time").toString()).addHours(1).toString() < new Date().toString()) {
       window.location.replace(linkToRedirectInProduction)   
     }
     let access_token = accessToken()

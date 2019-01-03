@@ -55,7 +55,8 @@ class Player extends Component {
             numberofParagraphs: 0,
             cookieUsed: false,
             context: "",
-            speakerSrc: ""
+            speakerSrc: "",
+            devices: []
         }
         this.getLyrics = this.getLyrics.bind(this)
         this.setCurrentTrack = this.setCurrentTrack.bind(this)
@@ -532,9 +533,6 @@ class Player extends Component {
                                 step={5}
                                 defaultValue={volume}>
                             </input>
-                            <img className="speaker-img" src={src}></img>
-                            <span className="speaker-percentage">{this.state.volume} %</span>
-                                  
                     <div className="circle-left"><img src={require("../icons/rewind.png")} onClick={() => this.backwards(10)}></img></div>
                     <div className="circle-right"><img src={require("../icons/fast-forward.png")} onClick={() => this.forwards(10)}></img></div>
                     <div
@@ -572,15 +570,30 @@ class Player extends Component {
                         onMouseEnter={() => {
                             let token = accessToken();
                             getDevices(token)
-                            .then((response) => console.log("DEVICES",response.data.devices))
+                            .then((response) => {
+                                let names = response.data.devices.map((device) => {
+                                    let active;
+                                    let is_active = device.is_active;
+                                    is_active ? active = "device_active" : active = "device_unactive"
+                                    return <h3
+                                        className={`device_name ${active}`} 
+                                        onClick={() => {
+                                        let access = accessToken();
+                                        TransferPlayback(access, device.id)
+                                        $(".devices_modal").addClass("hide")
+                                    }}>{device.name}</h3>
+                                })
+                                this.setState({devices: names})
+                                console.log("DEVICES",response.data.devices)
+                            })
                             $(".devices_modal").removeClass("hide")
                         }}
                         ></div>
                     <div className="devices_modal hide">
-                        <h3>Computer</h3>
-                        <h3>Mobile</h3>
+                        {this.state.devices}
                     </div>
                 </div>
+                <div className="device-warning">Listening on device_name</div>
             </div>
         )
     }

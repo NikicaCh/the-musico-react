@@ -614,11 +614,13 @@ body {
   border-radius: 25px;
 }
 .icon-scroll:before {
+  position: absolute;
+  margin: 0 20vw 0 0;
+  right: 100vw;
   content: '';
   width: 5px;
   height: 5px;
   background: rgb(255, 255, 255);
-  margin-left: -26px;
   top: 6px;
   border-radius: 4px;
   -webkit-animation-duration: 1.5s;
@@ -742,10 +744,27 @@ button:focus {outline:0;}
 
 .pills-row {
   position: relative;
-  top: 58%;
+  top: 55%;
   width: 35%;
   margin: 0 auto;
   color: white;
+}
+
+@media only screen and (max-width: 1200px) {
+  .pills-row{
+    top: 60%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .pills-row {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .search-title {
+    position: absolute;
+    top: -20%;
+  }
 }
 .pills-searched {
   transform: translateY(-700%);
@@ -1555,12 +1574,12 @@ input[type=range]:focus::-ms-fill-upper {
   right: 6%;
   cursor: pointer;
   z-index: 1000;
-  content: url("./icons/devices_black.png")
+  content: url("./icons/devices_black.png");
+  opacity: 0.6;
 }
 
 .devices-icon:hover {
-  content: url("./icons/devices_gray.png");
-  transition: all 0.2s ease-in-out;
+  opacity: 1;
 }
 
 .devices_modal {
@@ -1569,7 +1588,7 @@ input[type=range]:focus::-ms-fill-upper {
   right: 3%;
   width: 8vw;
   height: 12vw;
-  background: #c5c5c5;
+  background: #494646;
   z-index: 1000;
   box-shadow: -2px -2px 3px rgb(0, 0, 0);
 }
@@ -1585,4 +1604,21 @@ input[type=range]:focus::-ms-fill-upper {
   border-style: solid;
   border-width: 20px 20px 0 20px;
   border-color: #363636 transparent #363636 transparent;
+}
+
+.device_name {
+  cursor: pointer;
+}
+
+.device-warning {
+  width: 100%;
+  height: 2.3%;
+  z-index: 100;
+  background: #0a852e;
+  position: absolute;
+  top:97.7%;
+}
+
+.device_active {
+  color: #0a853e;
 }
