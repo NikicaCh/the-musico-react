@@ -615,7 +615,7 @@ body {
 }
 .icon-scroll:before {
   position: absolute;
-  margin: 0 20vw 0 0;
+  margin: 0 20vw 0 -1.35vw;
   right: 100vw;
   content: '';
   width: 5px;
@@ -988,6 +988,34 @@ button:focus {outline:0;}
   color: rgb(212, 212, 212);
   text-transform: uppercase;
   font-size: 1.1vw;
+}
+
+.dragable {
+  cursor: pointer;
+}
+
+.drag-wrapper {
+  height: 1vw;
+  text-align: center;
+}
+.drag-menu1{
+  width: 5vw;
+  height: .2%;
+  background: #2e3330;
+  position: absolute;
+  left: 45%;
+}
+.drag-menu2 {
+  width: 5vw;
+  height: .2%;
+  background: #2e3330;
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  left: 55%;
+}
+.drag-active {
+  background: #68636a
 }
 
 .search-top {
@@ -1590,7 +1618,8 @@ input[type=range]:focus::-ms-fill-upper {
   height: 12vw;
   background: #494646;
   z-index: 1000;
-  box-shadow: -2px -2px 3px rgb(0, 0, 0);
+  box-shadow: -2px -2px 3px #363636;
+  text-align: center;
 }
 
 .devices_modal::after {
@@ -1603,22 +1632,40 @@ input[type=range]:focus::-ms-fill-upper {
   height: 0;
   border-style: solid;
   border-width: 20px 20px 0 20px;
-  border-color: #363636 transparent #363636 transparent;
+  border-color: #494646 transparent #494646 transparent;
 }
 
 .device_name {
   cursor: pointer;
+  font-size: 1vw;
+  margin-top: 5%;  
 }
 
 .device-warning {
   width: 100%;
   height: 2.3%;
   z-index: 100;
-  background: #0a852e;
+  background: #3aa065;
   position: absolute;
   top:97.7%;
+  color: rgb(34, 32, 30);
+  font-family: 'Anton', sans-serif;
+}
+.device-warning p {
+  float: right;
+  margin-right: 20px;
+}
+.device-warning::before  {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 20px 0 20px;
+  border-color: #3aa065 transparent #3aa065 transparent;
+  display: inline-block;
+  transform: rotate(180deg) translateY(100%) translateX(-92vw);
 }
 
 .device_active {
-  color: #0a853e;
+  color: #3aa065;
 }

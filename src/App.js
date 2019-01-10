@@ -57,7 +57,6 @@ class App extends Component {
       return this;
     } //to add one hour on access_date cookie
     const cookies = new Cookies();
-    console.log("EVE GA VRATI SE KRALJ", cookies.get("access_time"))
     let parsed = queryString.parse(document.location.search)
     if(parsed.spotify) {
       cookies.set("access", parsed.spotify)

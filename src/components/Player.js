@@ -56,7 +56,8 @@ class Player extends Component {
             cookieUsed: false,
             context: "",
             speakerSrc: "",
-            devices: []
+            devices: [],
+            activeDevice: "",
         }
         this.getLyrics = this.getLyrics.bind(this)
         this.setCurrentTrack = this.setCurrentTrack.bind(this)
@@ -240,7 +241,7 @@ class Player extends Component {
                         artists.push(<span className="artistName">{artist.name}</span>)
                         artists.push(<br />);
                     });
-                    if(data.data.item.name !== this.state.currentPlaybackName) {
+                    if(data.data.item.name !== this.state.currentPlaybackName) { //NOT ONLY THE NAME, CHANGE THIS
                         lastPlayed = {
                             name: data.data.item.name,
                             image: data.data.item.album.images[0].url,
@@ -455,6 +456,20 @@ class Player extends Component {
             // } else {
             //     this.setState({playing: true})
             // }
+            let token = accessToken();
+            getDevices(token)
+            .then((response) => {
+                if(response) {
+                    response.data.devices.map((device) => {
+                        if(device.is_active && device.id !== this.state.musicoId) {
+                            $(".device-warning").removeClass("hide")
+                            this.setState({activeDevice: device.name})
+                        } else if( device.is_active && device.id == this.state.musicoId) {
+                            $(".device-warning").addClass("hide")
+                        }
+                    })
+                }
+            })
             console.log("state change", state)
             this.setCurrentTrack(access); // SET CURRENT TRACK -------------------------------------------------
             this.setCurrentTrack(access); // I must call this func twice, because when I try to play the same song again the API returns is_playing:false
@@ -575,6 +590,10 @@ class Player extends Component {
                                     let active;
                                     let is_active = device.is_active;
                                     is_active ? active = "device_active" : active = "device_unactive"
+                                    if(device.is_active && device.id !== this.state.musicoId) {
+                                        this.setState({activeDevice: device.name})
+                                        $(".device-warning").removeClass("hide")
+                                    }
                                     return <h3
                                         className={`device_name ${active}`} 
                                         onClick={() => {
@@ -593,7 +612,7 @@ class Player extends Component {
                         {this.state.devices}
                     </div>
                 </div>
-                <div className="device-warning">Listening on device_name</div>
+                <div className="device-warning hide"><p>Listening on {this.state.activeDevice}</p></div>
             </div>
         )
     }

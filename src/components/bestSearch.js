@@ -16,9 +16,24 @@ class BestSearch extends React.Component {
             searched: "",
             type: "",
             name: "",
-            restCondition: "artists"
+            restCondition: "artists",
+            whatToRender: "default", // default and artist are the options
         }
+        this.p1TouchStart = this.p1TouchStart.bind(this)
+        this.p1TouchMove = this.p1TouchMove.bind(this)
+        this.p1TouchEnd = this.p1TouchEnd.bind(this)
     }
+
+    p1TouchStart(e) {
+        console.log("THIS IS THE TOUCHSTART EVENT", e)
+    }
+    p1TouchMove(e) {
+        console.log("THIS IS THE TOUCHMOVE EVENT", e)
+    }
+    p1TouchEnd(e) {
+        console.log("THIS IS THE TOUCHEND EVENT", e)
+    }
+
     componentDidMount() {
         let token = accessToken();
         let userId = this.props.userId;
@@ -112,7 +127,15 @@ class BestSearch extends React.Component {
                 render
                 ? <div className="container w-100 search-top">
                             <div className="row other-results-title"><h2>Top result</h2></div>
-                            <div className="row w-100">
+                            <div
+                                className="row w-100 dragable"
+                                onMouseDownCapture={(event) => { this.p1TouchStart(event)}}
+                                onMouseMoveCapture={ (event) => {this.p1TouchMove(event)}}
+                                onMouseOutCapture={ (event) => {this.p1TouchEnd(event)}}> {/*this is the div where I should append the drag 'n' drop event */}
+                                <div className="row w-100 drag-wrapper">
+                                    <div className="drag-menu1"></div>
+                                    <div className="drag-menu2"></div>
+                                </div>
                                 <div className="col-md-3 col-xs-6 mt-5 relative"> 
                                     <img id={this.props.trackId} src={this.props.image} className={`best-search-img ${this.props.type}-img`}></img>
                                     {/* <img className="play-hover" src={require("../icons/play-hover.png")}></img> */}
@@ -129,7 +152,8 @@ class BestSearch extends React.Component {
                                 : <div></div>
                             }
                                 </div>
-                            </div> 
+                            </div> {/*Where the dragable div ends */}
+                            <div></div> {/*This is the second dragable div */}
                             <div className="other-results-container">
                                 <div className="row">
                                     <span
