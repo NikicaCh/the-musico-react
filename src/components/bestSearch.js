@@ -21,17 +21,13 @@ class BestSearch extends React.Component {
         }
         this.p1TouchStart = this.p1TouchStart.bind(this)
         this.p1TouchMove = this.p1TouchMove.bind(this)
-        this.p1TouchEnd = this.p1TouchEnd.bind(this)
     }
 
     p1TouchStart(e) {
-        console.log("THIS IS THE TOUCHSTART EVENT", e)
+        console.log("THIS IS THE MOVE EVENT", e)
     }
     p1TouchMove(e) {
-        console.log("THIS IS THE TOUCHMOVE EVENT", e)
-    }
-    p1TouchEnd(e) {
-        console.log("THIS IS THE TOUCHEND EVENT", e)
+        console.log("THIS IS THE MOUSE UP EVENT", e)
     }
 
     componentDidMount() {
@@ -129,9 +125,8 @@ class BestSearch extends React.Component {
                             <div className="row other-results-title"><h2>Top result</h2></div>
                             <div
                                 className="row w-100 dragable"
-                                onMouseDownCapture={(event) => { this.p1TouchStart(event)}}
-                                onMouseMoveCapture={ (event) => {this.p1TouchMove(event)}}
-                                onMouseOutCapture={ (event) => {this.p1TouchEnd(event)}}> {/*this is the div where I should append the drag 'n' drop event */}
+                                onDragEnter={(event) => { this.p1TouchStart(event)}}
+                                onDragExit={ (event) => {this.p1TouchMove(event)}}> {/*this is the div where I should append the drag 'n' drop event */}
                                 <div className="row w-100 drag-wrapper">
                                     <div className="drag-menu1"></div>
                                     <div className="drag-menu2"></div>
