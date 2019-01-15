@@ -59,7 +59,7 @@ class Search extends Component {
                             
                             if(artistPop + 5 >= trackPop && this.state.artist.images.length) {
                                 this.setState({max: this.state.artist.name, maxImg: this.state.artist.images[0].url, type: "artist"})
-                            } else if(trackPop > artistPop && this.state.track.album.images) {
+                            } else if(trackPop > artistPop && this.state.track.album.images && this.state.track.album.images.length) {
                                 this.setState({max: this.state.track.name, maxImg: this.state.track.album.images[0].url, type: "track"})
                             }
                         })
@@ -122,6 +122,7 @@ class Search extends Component {
                     $(".pills-row").addClass("pills-searched")
                     $(".results").attr("class", "results")
                     this.search(token, value);
+                    this.setState(this.state); //this is because sometimes it happens that the component doesn't rerender after a pill is clicked
                 }) 
             } else if(e.target.id === "pill5") { //if you click pill 5
                 FeaturingPlaylists(token)

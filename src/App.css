@@ -861,6 +861,46 @@ button:focus {outline:0;}
   position: relative;
   left: 15%;
 }
+.next-page-icon {
+  width: 2vw;
+  height: 2vw;
+  position: absolute;
+  top: 40%;
+  right: -5%;
+  transition: transform .3s ease-in-out;
+}
+.next-page-icon:hover {
+  transform: scale(1.2);
+  transition: transform .3s ease-in-out;
+}
+.prev-page-icon {
+  width: 2vw;
+  height: 2vw;
+  position: absolute;
+  top: 40%;
+  left: 5%;
+  transition: transform .3s ease-in-out;
+}
+.prev-page-icon:hover{
+  transform: scale(1.2);
+  transition: transform .3s ease-in-out;
+}
+.first-page:hover > .first-page div {
+  display: none
+}
+
+.second-page {
+  transform: translateX(100%);
+  transition: all .8s ease-in-out;
+  z-index: -1111;
+}
+.second-page:hover {
+  transform: translateX(0);
+  transition: all .8s ease-in-out;
+  z-index: -1111
+}
+
+
 
 .results {
   position: absolute;

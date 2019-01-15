@@ -19,15 +19,6 @@ class BestSearch extends React.Component {
             restCondition: "artists",
             whatToRender: "default", // default and artist are the options
         }
-        this.p1TouchStart = this.p1TouchStart.bind(this)
-        this.p1TouchMove = this.p1TouchMove.bind(this)
-    }
-
-    p1TouchStart(e) {
-        console.log("THIS IS THE MOVE EVENT", e)
-    }
-    p1TouchMove(e) {
-        console.log("THIS IS THE MOUSE UP EVENT", e)
     }
 
     componentDidMount() {
@@ -82,20 +73,20 @@ class BestSearch extends React.Component {
             Featuring(this.props.artistId, token )
             .then((data) => {
                 if(data) {
-                    let array = data.data.tracks.slice(0, 10).map((track) => {
+                    let array = data.data.tracks.slice(0, 8).map((track) => {
                         let name = track.name
                         if(track.name.length > 20) {
                             name = track.name.substring(0, 20) +"...";
                         }
-                        return  <div className="col-md-2 col-sm-6 mt-2 mb-2">
-                                    <div className="row w-100 ml-5 d-flex justify-content-center">
+                        return  <div className="col-md-3 col-sm-7 mt-2 mb-2">
+                                    <div className="row w-100 ml-3 d-flex justify-content-center">
                                         <img
                                             src={track.album.images[0].url}
                                             className="featuring-img play-track mb-3"
                                             id={track.uri}>
                                         </img>
                                     </div>
-                                    <div className="row w-100 ml-5 d-flex justify-content-center">
+                                    <div className="row w-100 ml-3 d-flex justify-content-center">
                                         <span title={track.name} className="featuring-title">{name}</span>
                                     </div>
                     </div>
@@ -124,9 +115,7 @@ class BestSearch extends React.Component {
                 ? <div className="container w-100 search-top">
                             <div className="row other-results-title"><h2>Top result</h2></div>
                             <div
-                                className="row w-100 dragable"
-                                onDragEnter={(event) => { this.p1TouchStart(event)}}
-                                onDragExit={ (event) => {this.p1TouchMove(event)}}> {/*this is the div where I should append the drag 'n' drop event */}
+                                className="row w-100 dragable"> {/*this is the div where I should append the drag 'n' drop event */}
                                 <div className="row w-100 drag-wrapper">
                                     <div className="drag-menu1"></div>
                                     <div className="drag-menu2"></div>
@@ -140,9 +129,12 @@ class BestSearch extends React.Component {
                             {
                                 featuring 
                                 ?   <div>
-                                            <div className="row">
+                                            <div className="row ml-3 mt-4 first-page">
                                                 {this.state.featuring}
                                             </div>
+                                            <img className="next-page-icon" alt="next-page" src={require("../icons/next-page.png")}></img>
+                                            <img className="prev-page-icon" alt="prev-page" src={require("../icons/prev-page.png")}></img>
+                                            <div className="row ml-3 mt-4 second-page"><h1>HELLO WORLD</h1></div>
                                     </div> 
                                 : <div></div>
                             }
