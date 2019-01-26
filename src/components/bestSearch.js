@@ -129,7 +129,8 @@ class BestSearch extends React.Component {
                             {
                                 featuring 
                                 ?   <div>
-                                            <div className="row ml-3 mt-4 first-page">
+                                            <div id="first-page" className="row ml-3 mt-4 first-page" onClick={() => {
+                                                }}>
                                                 {this.state.featuring}
                                             </div>
                                             <img className="next-page-icon" alt="next-page" src={require("../icons/next-page.png")}></img>

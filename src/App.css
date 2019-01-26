@@ -885,10 +885,11 @@ button:focus {outline:0;}
   transform: scale(1.2);
   transition: transform .3s ease-in-out;
 }
-.first-page:hover > .first-page div {
-  display: none
-}
 
+.slide-left {
+  display: none;
+  transition: all 1s ease-in-out 1s;
+}
 .second-page {
   transform: translateX(100%);
   transition: all .8s ease-in-out;
